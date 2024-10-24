@@ -44,7 +44,7 @@ void reSnake::paintEvent(QPaintEvent* e)
 {
     QPainter* painter = new QPainter(this);
     QPixmap* bkg = new QPixmap(":/qtres/bg.png");
-    *bkg=bkg->scaled(this->width(),this->height(),Qt::IgnoreAspectRatio);
+    *bkg = bkg->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     painter->drawPixmap(0, 0, *bkg);
     painter->end();
 }

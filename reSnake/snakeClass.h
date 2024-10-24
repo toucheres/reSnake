@@ -19,7 +19,6 @@ public:
 	void changeDirection(int direction);
 	void setlenght(int lenght);
 	void skill();
-	
 
 };
 

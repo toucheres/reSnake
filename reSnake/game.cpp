@@ -7,9 +7,9 @@ game::game(QWidget *parent)
 {
 	ui.setupUi(this);
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
+	//this->setFixedSize(700, 1198);
 	setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
-	//this->setFixedSize(700, 1198);
 	this->move(500, 0);
 	//buttons
 	connect(ui.btn3, &QPushButton::clicked, this, [=]() {
