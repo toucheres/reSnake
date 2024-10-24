@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>reSnakeClass</class>
+ <widget class="QMainWindow" name="reSnakeClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>700</width>
+    <height>1198</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>贪吃蛇</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="reSnake.qrc">
+    <normaloff>:/shetou/qtres/shetou/shetouup.png</normaloff>:/shetou/qtres/shetou/shetouup.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="reSnake.qrc"/>
+ </resources>
+ <connections/>
+</ui>
