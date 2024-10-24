@@ -92,8 +92,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="foodClass.cpp" />
     <ClCompile Include="mypushbutton.cpp" />
     <ClCompile Include="select.cpp" />
+    <ClCompile Include="snakeClass.cpp" />
+    <ClCompile Include="snakemapClass.cpp" />
+    <ClCompile Include="snakeNodeClass.cpp" />
     <QtRcc Include="reSnake.qrc" />
     <QtUic Include="game.ui" />
     <QtUic Include="mypushbutton.ui" />
@@ -112,6 +116,13 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mypushbutton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="foodClass.h" />
+    <ClInclude Include="snakeClass.h" />
+    <ClInclude Include="snakeEnum.h" />
+    <ClInclude Include="snakemapClass.h" />
+    <ClInclude Include="snakeNodeClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

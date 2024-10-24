@@ -2,6 +2,10 @@
 
 #include <QMainWindow>
 #include "ui_game.h"
+#include "snakeClass.h"
+#include "foodClass.h"
+#include "snakemapClass.h"
+
 
 class game : public QMainWindow
 {
