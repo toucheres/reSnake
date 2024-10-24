@@ -10,4 +10,5 @@ snakeNodeClass::snakeNodeClass(int x, int y, int direction,int type)
 
 snakeNodeClass::~snakeNodeClass()
 {
+
 }

@@ -14,6 +14,7 @@ public:
     ~reSnake();
     select* ppage2=NULL;
     void paintEvent(QPaintEvent*);
+    void resizeEvent(QResizeEvent*);
 public slots:
     void gotopage2();
     void gotopage1();

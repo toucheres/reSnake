@@ -8,8 +8,10 @@ select::select(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
-	this->setFixedSize(700, 1198);
+	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
+	setWindowFlags(Qt::WindowStaysOnTopHint);
+	this->resize(600, 1027);
+	//this->setFixedSize(700, 1198);
 	this->move(500, 0);
 	
 	//connect(this->ppage3,&game::backtopage2,this,&select::gotopage2);

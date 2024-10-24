@@ -7,6 +7,8 @@ snakeClass::snakeClass()
 	this->direction = up;
 	this->state = alive;
 	this->speed = 1000;
+	//³õÊ¼»¯ÉßÉí
+	//this->body.push_back(*new snakeNodeClass());
 }
 
 snakeClass::~snakeClass()
