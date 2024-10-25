@@ -5,6 +5,7 @@
 #include "snakeClass.h"
 #include "foodClass.h"
 #include "snakemapClass.h"
+#include<QKeyEvent>
 
 
 class game : public QMainWindow
@@ -19,10 +20,10 @@ public:
 	~game();
 	void init();
 	void logic();
-	void paintEvent(QPaintEvent*);
-	void resizeEvent(QResizeEvent*);
-
-
+	void paintEvent(QPaintEvent*e);
+	void resizeEvent(QResizeEvent*e);
+	void keyPressEvent(QKeyEvent*e);
+	void keyReleaseEvent(QKeyEvent*e);
 
 signals:
 	void backtopage2();

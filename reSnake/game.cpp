@@ -10,6 +10,10 @@ game::game(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	ui.btn3->setAutoDefault(false);
+	ui.btn3->setDefault(false);
+	ui.btn3->setShortcutAutoRepeat(false);
+	
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
 	//this->setFixedSize(700, 1198);
 	this->snake = new snakeClass;
@@ -25,7 +29,7 @@ game::game(QWidget* parent)
 		});
 
 
-	//logic( snake);
+	logic();
 }
 void game::paintEvent(QPaintEvent* e)
 {
@@ -42,10 +46,10 @@ void game::paintEvent(QPaintEvent* e)
 	QPixmap* shetouup_pixmap = new QPixmap(":/shetou/qtres/shetou/shetouup.png");
 	QPixmap* shetoudown_pixmap = new QPixmap(":/shetou/qtres/shetou/shetoudown.png");
 
-	QPixmap* sheweileft_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweileft.png");
-	QPixmap* sheweiright_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiright.png");
-	QPixmap* sheweidown_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweidown.png");
-	QPixmap* sheweiup_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiup.png");
+	QPixmap* sheweiright_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweileft.png");
+	QPixmap* sheweileft_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiright.png");
+	QPixmap* sheweiup_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweidown.png");
+	QPixmap* sheweidown_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiup.png");
 
 	QPixmap* shewanleftdown_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanleftdown.png");
 	QPixmap* shewanrightup_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanrightup.png");
@@ -71,7 +75,7 @@ void game::paintEvent(QPaintEvent* e)
 	*bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	for (std::vector<QPixmap*>::iterator it = pixmaps.begin(); it != pixmaps.end(); it++)
 	{
-		**it = (*it)->scaled((57.0/700)*snakemap->xlengthp, (57.0 / 700) * snakemap->xlengthp, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		**it = (*it)->scaled((58.0/700)*snakemap->xlengthp, (58.0 / 1198) * snakemap->ylengthp, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		
 	}
 	//背景
@@ -126,6 +130,14 @@ void game::paintEvent(QPaintEvent* e)
 			}
 			break;
 		}
+		case shewan:
+		{
+			
+
+			break;
+		}
+
+
 		}
 
 	}
@@ -139,6 +151,71 @@ void game::resizeEvent(QResizeEvent*)
 	std::cout << "resize" << std::endl;
 	snakemap->xlengthp = this->width();
 	snakemap->ylengthp = this->height();
+}
+
+void game::keyPressEvent(QKeyEvent* event)
+{
+	// 普通键
+	switch (event->key())
+	{
+		// ESC键
+	case Qt::Key_Escape:
+		qDebug() << "ESC";
+		break;
+	case Qt::Key_Space:
+		qDebug() << "Space";
+		break;
+		// 回车键
+	case Qt::Key_Return:
+		qDebug() << "Enter";
+		break;
+		// F1键
+	case Qt::Key_F1:
+		qDebug() << "F1";
+		break;
+	case Qt::Key_E:
+		qDebug() << "E";
+		break;
+	case Qt::Key_W:
+		this->snake->changeDirection(up);
+		break;
+	case Qt::Key_S:
+		this->snake->changeDirection(down);
+		break;
+	case Qt::Key_A:
+		this->snake->changeDirection(left);
+		break;
+	case Qt::Key_D:
+		this->snake->changeDirection(right);
+		break;
+
+	}
+
+	// 两键组合
+	if (event->modifiers() == Qt::ControlModifier) { // 如果按下了CTRL键
+		if (event->key() == Qt::Key_M) {
+			qDebug() << "CTRL + M";
+		}
+	}
+
+	if (event->modifiers() == Qt::AltModifier) { // 如果按下了ALT键
+		if (event->key() == Qt::Key_M)
+			qDebug() << "ALT + M";
+	}
+
+	if (event->modifiers() == Qt::ShiftModifier) { // 如果按下了Shift键
+		if (event->key() == Qt::Key_M)
+			qDebug() << "Shift + M";
+	}
+
+	// 三键组合Shift + Ctrl + A的实现
+	if (event->modifiers() == (Qt::ShiftModifier | Qt::ControlModifier) && event->key() == Qt::Key_A) {
+		qDebug() << "CTRL + Shift + A";
+	}
+}
+
+void game::keyReleaseEvent(QKeyEvent* e)
+{
 }
 
 game::~game()
@@ -169,9 +246,9 @@ void game::logic()
 	QTimer* timer = new QTimer(this);
 	timer->start(1000);
 	connect(timer, &QTimer::timeout, this, [=]() {
-		//
+		snake->move();
+		update();
 		});
-
 }
 
 

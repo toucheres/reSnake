@@ -2,6 +2,8 @@
 #include <list>
 #include "snakeNodeClass.h"
 #include "snakeEnum.h"
+#include <QDebug>
+#include <iostream>
 
 class snakeClass
 {
@@ -19,6 +21,7 @@ public:
 	void changeDirection(int direction);
 	void setlenght(int lenght);
 	void skill();
-
+	snakeNodeClass getNextHead();
+	void updataState();
 };
 
