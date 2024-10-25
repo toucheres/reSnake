@@ -14,24 +14,11 @@
    <string>select</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="btn2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>80</y>
-      <width>141</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>返回</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btn4">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>180</y>
+      <x>240</x>
+      <y>20</y>
       <width>181</width>
       <height>61</height>
      </rect>
@@ -39,6 +26,71 @@
     <property name="text">
      <string>关卡</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>271</width>
+      <height>125</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="choosecolor">
+       <property name="title">
+        <string>选择颜色</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QRadioButton" name="greencheck">
+          <property name="text">
+           <string>绿</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="redcheck">
+          <property name="text">
+           <string>红</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>选择速度</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="speedfast">
+          <property name="text">
+           <string>快</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="speednormal">
+          <property name="text">
+           <string>中</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="speedslow">
+          <property name="text">
+           <string>慢</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>

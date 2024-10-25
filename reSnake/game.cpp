@@ -10,9 +10,9 @@ game::game(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.btn3->setAutoDefault(false);
-	ui.btn3->setDefault(false);
-	ui.btn3->setShortcutAutoRepeat(false);
+	//ui.btn3->setAutoDefault(false);
+	//ui.btn3->setDefault(false);
+	//ui.btn3->setShortcutAutoRepeat(false);
 	
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
 	//this->setFixedSize(700, 1198);
@@ -24,9 +24,9 @@ game::game(QWidget* parent)
 	this->resize(600, 1027);
 	this->move(900, 0);
 	//buttons
-	connect(ui.btn3, &QPushButton::clicked, this, [=]() {
-		emit this->backtopage2();
-		});
+	//connect(ui.btn3, &QPushButton::clicked, this, [=]() {
+	//	emit this->backtopage2();
+	//	});
 
 
 	logic();
@@ -176,7 +176,9 @@ void game::keyPressEvent(QKeyEvent* event)
 	{
 		// ESC键
 	case Qt::Key_Escape:
-		qDebug() << "ESC";
+		//返回page2
+		emit this->backtopage2();
+		break;
 		break;
 	case Qt::Key_Space:
 		qDebug() << "Space";

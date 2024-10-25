@@ -14,6 +14,8 @@ public:
 	game* ppage3 = NULL;
 	void paintEvent(QPaintEvent*);
 	void resizeEvent(QResizeEvent*);
+	void keyPressEvent(QKeyEvent* e);
+	void keyReleaseEvent(QKeyEvent* e);
 public slots:
 	void gotopage2();
 	void gotopage3();

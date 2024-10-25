@@ -16,9 +16,9 @@ select::select(QWidget *parent)
 	this->move(900, 0);
 	
 	//connect(this->ppage3,&game::backtopage2,this,&select::gotopage2);
-	connect(ui.btn2, &QPushButton::clicked, this, [=]() {
-		emit this->backtopage1();
-		});
+	//connect(ui.btn2, &QPushButton::clicked, this, [=]() {
+	//	emit this->backtopage1();
+	//	});
 	connect(ui.btn4, &QPushButton::clicked, this, [=]() {
 		emit this->gotopage3();
 		});
@@ -56,6 +56,22 @@ void select::resizeEvent(QResizeEvent*)
 		button->move((this->width() - button->width()) / 2, this->height() / 2);
 	}
 
+}
+
+void select::keyPressEvent(QKeyEvent* event)
+{
+	switch (event->key())
+	{
+		case Qt::Key_Escape:
+			emit this->backtopage1();
+			break;
+		default:
+			break;
+	}
+}
+
+void select::keyReleaseEvent(QKeyEvent* e)
+{
 }
 
 void select::gotopage2()
