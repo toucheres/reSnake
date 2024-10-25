@@ -33,7 +33,9 @@ game::game(QWidget* parent)
 }
 void game::paintEvent(QPaintEvent* e)
 {
-	std::cout << snake->body.begin()->x << " " << snake->body.begin()->y << std::endl;
+	snake->printSnake();
+	snake->checkState();
+	//std::cout << snake->body.begin()->x << " " << snake->body.begin()->y << std::endl;
 	QPainter* painter = new QPainter(this);
 	//载入
 	QPixmap* bkg_pixmap = new QPixmap(":/qtres/bg.png");
@@ -132,7 +134,21 @@ void game::paintEvent(QPaintEvent* e)
 		}
 		case shewan:
 		{
-			
+			switch (it->shewanDirection)
+			{
+				case leftup:
+					painter->drawPixmap(px, py, *shewanleftup_pixmap);
+					break;
+				case rightdown:
+					painter->drawPixmap(px, py, *shewanrightdown_pixmap);
+					break;
+				case leftdown:
+					painter->drawPixmap(px, py, *shewanleftdown_pixmap);
+					break;
+				case rightup:
+					painter->drawPixmap(px, py, *shewanrightup_pixmap);
+					break;
+			}
 
 			break;
 		}
@@ -177,16 +193,20 @@ void game::keyPressEvent(QKeyEvent* event)
 		qDebug() << "E";
 		break;
 	case Qt::Key_W:
-		this->snake->changeDirection(up);
+		if(this->snake->flag_direction_changed==false)
+			this->snake->changeDirection(up);
 		break;
 	case Qt::Key_S:
-		this->snake->changeDirection(down);
+		if (this->snake->flag_direction_changed == false)
+			this->snake->changeDirection(down);
 		break;
 	case Qt::Key_A:
-		this->snake->changeDirection(left);
+		if (this->snake->flag_direction_changed == false)
+			this->snake->changeDirection(left);
 		break;
 	case Qt::Key_D:
-		this->snake->changeDirection(right);
+		if (this->snake->flag_direction_changed == false)
+			this->snake->changeDirection(right);
 		break;
 
 	}
@@ -235,18 +255,19 @@ void game::init()
 
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 1, up, shetou));
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 2, up, shesheng));
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 3, up, shewei));
-
-
+	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 3, up, shesheng));
+	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 4, up, shesheng));
+	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 5, up, shewei));
 }
 
 void game::logic()
 {
-
 	QTimer* timer = new QTimer(this);
 	timer->start(1000);
 	QTimer* timer1 = new QTimer(this);
 	timer1->start(100);
+	QTimer* timer2 = new QTimer(this);
+	timer2->start(1000);
 	//if (this->snake->flag_direction_changed == true)
 	//{
 	//	snake->move();
@@ -257,17 +278,21 @@ void game::logic()
 	connect(timer, &QTimer::timeout, this, [=]() {
 		snake->move();
 		update();
-		timer->start(1000);
+		timer->start(this->snake->speed);//转向后500ms移动后设置为正常速度
 		});
 	connect(timer1, &QTimer::timeout, this, [=]() {
 		if (this->snake->flag_direction_changed == true)
 		{
-			timer->start(500);
+			timer->start(this->snake->speed/2);//转向后500ms才开始移动
 			snake->move();
-			std::cout << "changedmove" << std::endl;
+			//std::cout << "changedmove" << std::endl;
 			this->snake->flag_direction_changed = false;
 			update();
 		}
+		//this->snake->checkState();
+		});
+	connect(timer2, &QTimer::timeout, this, [=]() {
+		//this->snake->checkState();
 		});
 }
 

@@ -17,6 +17,8 @@ public:
 	int lenght;
 	int direction;
 	bool flag_direction_changed;
+	bool is_moving;
+	int direactionBefore;
 	std::list<snakeNodeClass> body;
 	void move();
 	void changeDirection(int direction);
@@ -24,5 +26,7 @@ public:
 	void skill();
 	snakeNodeClass getNextHead();
 	void updataState();
+	void checkState();//纠错(自然前行与转向前行同时触发时有概率出现连续的两段蛇弯)
+	void printSnake();
 };
 

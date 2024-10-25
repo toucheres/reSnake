@@ -6,6 +6,7 @@
 #include "foodClass.h"
 #include "snakemapClass.h"
 #include<QKeyEvent>
+#include <qtmetamacros.h>
 
 
 class game : public QMainWindow

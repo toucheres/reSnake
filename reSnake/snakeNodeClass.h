@@ -9,5 +9,6 @@ public:
 	int y;
 	int direction;
 	int type;
+	int shewanDirection;
 };
 
