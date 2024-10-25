@@ -5,6 +5,8 @@
 #include"mypushbutton.h"
 #include<QTimer>
 #include<iostream>
+#include<QKeyEvent>
+#include"SmallWidget.h"
 select::select(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -14,7 +16,8 @@ select::select(QWidget *parent)
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
 	this->move(900, 0);
-	
+	SmallWidget* smallwidget = new SmallWidget(this);
+	smallwidget->move(40,250);
 	//connect(this->ppage3,&game::backtopage2,this,&select::gotopage2);
 	//connect(ui.btn2, &QPushButton::clicked, this, [=]() {
 	//	emit this->backtopage1();
@@ -72,6 +75,15 @@ void select::keyPressEvent(QKeyEvent* event)
 
 void select::keyReleaseEvent(QKeyEvent* e)
 {
+}
+
+double select::getsppeedbyinput(double x)
+{
+	// 通过选定的参数 a, b, c 来设置二次函数
+	double a = 0.00065;  // 二次项系数
+	double b = -9.81;     // 一次项系数
+	double c = 1000;     // 常数项
+	return a * x * x + b * x + c;
 }
 
 void select::gotopage2()

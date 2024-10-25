@@ -16,6 +16,7 @@ public:
 	void resizeEvent(QResizeEvent*);
 	void keyPressEvent(QKeyEvent* e);
 	void keyReleaseEvent(QKeyEvent* e);
+	double getsppeedbyinput(double speed);
 public slots:
 	void gotopage2();
 	void gotopage3();

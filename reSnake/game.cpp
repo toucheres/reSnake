@@ -6,6 +6,7 @@
 #include<iostream>
 #include<list>
 #include "snakeEnum.h"
+#include "select.h"
 game::game(QWidget* parent)
 	: QMainWindow(parent)
 {
@@ -246,7 +247,7 @@ game::~game()
 
 }
 
-void game::init()
+void game::init(int tspeed,int tsize)
 {
 	std::cout<<"init"<<std::endl;
 	//snakeNodeClass newNode(snakemap->getpx((snakemap->xlengthnum / 2) + 1),
@@ -254,12 +255,14 @@ void game::init()
 	//	up,
 	//	shetou);
 	//this->snake->body.push_back(newNode);
-
+	this->snake->speed = tspeed;
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 1, up, shetou));
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 2, up, shesheng));
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 3, up, shesheng));
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 4, up, shesheng));
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 5, up, shewei));
+	int i = 0;
+	for (i = 0; i < tsize - 2; i++)
+	{
+		this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2) + 1, (snakemap->ylengthnum / 2) + i +2, up, shesheng));
+	}
+	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei));
 }
 
 void game::logic()

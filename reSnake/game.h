@@ -7,6 +7,7 @@
 #include "snakemapClass.h"
 #include<QKeyEvent>
 #include <qtmetamacros.h>
+//#include "select.h"
 
 
 class game : public QMainWindow
@@ -20,7 +21,7 @@ public:
 	
 	game(QWidget *parent = nullptr);
 	~game();
-	void init();
+	void init(int speed = 1000,int size = 4);
 	void logic();
 	void paintEvent(QPaintEvent*e);
 	void resizeEvent(QResizeEvent*e);

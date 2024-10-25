@@ -66,6 +66,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\asus\source\repos\newqt\newqt;C:\Users\asus\source\repos\newqt\newqt\x64\Debug\qt\uic</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -97,6 +98,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\newqt\newqt\SmallWidget.cpp" />
     <ClCompile Include="foodClass.cpp" />
     <ClCompile Include="mypushbutton.cpp" />
     <ClCompile Include="select.cpp" />
@@ -123,6 +125,7 @@
     <QtMoc Include="mypushbutton.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="..\..\newqt\newqt\SmallWidget.h" />
     <ClInclude Include="foodClass.h" />
     <ClInclude Include="snakeClass.h" />
     <ClInclude Include="snakeEnum.h" />

@@ -61,6 +61,9 @@
     <ClCompile Include="snakeNodeClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\newqt\newqt\SmallWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="game.h">
@@ -70,6 +73,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="mypushbutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\newqt\newqt\SmallWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

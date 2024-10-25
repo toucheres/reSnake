@@ -7,7 +7,7 @@ snakeClass::snakeClass()
 	this->lenght = 3;
 	this->direction = up;
 	this->state = alive;
-	this->speed = 1000;
+	//this->speed = 35;//speed将在game.init中初始化
 	this->flag_direction_changed = false;
 	this->direactionBefore = up;
 	this->is_moving = false;
