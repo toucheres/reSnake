@@ -21,13 +21,29 @@ void snakeClass::move()
 	this->updataState();
 }
 
-void snakeClass::changeDirection(int direction)
+void snakeClass::changeDirection(int tdirection)
 {
-	std::cout << "更改方向为：" << direction << std::endl;
+	if (tdirection == up && this->direction != down && this->direction != up)
+	{
+		this->direction = up;
+	}
+	if (tdirection == down && this->direction != up && this->direction != down)
+	{
+		this->direction = down;
+	}
+	if (tdirection == left && this->direction != right && this->direction != left)
+	{
+		this->direction = left;
+	}
+	if (tdirection == right && this->direction != left && this->direction != right)
+	{
+		this->direction = right;
+	}
 }
 
-void snakeClass::setlenght(int lenght)
+void snakeClass::setlength(int lenght)
 {
+
 }
 
 void snakeClass::skill()
@@ -37,17 +53,38 @@ void snakeClass::skill()
 snakeNodeClass snakeClass::getNextHead()
 {
 	snakeNodeClass tp = this->body.front();
-	switch(this->direction)
-		case up:
+	switch (this->direction)
+	{
+
+	case up:
 	{
 		tp.y--;
 		break;
+	}
+	case down:
+	{
+		tp.y++;
+		break;
+	}
+	case left:
+	{
+		tp.x--;
+		break;
+	}
+	case right:
+	{
+		tp.x++;
+		break;
+	}
+
 	}
 	return tp;
 }
 
 void snakeClass::updataState()
 {
+	this->body.front().direction = this->direction;
+
 	std::list<snakeNodeClass>::iterator it = this->body.begin();
 	it++;
 	(*it).type = shesheng;

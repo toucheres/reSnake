@@ -19,7 +19,7 @@ public:
 	std::list<snakeNodeClass> body;
 	void move();
 	void changeDirection(int direction);
-	void setlenght(int lenght);
+	void setlength(int length);
 	void skill();
 	snakeNodeClass getNextHead();
 	void updataState();
