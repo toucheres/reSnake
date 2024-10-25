@@ -245,9 +245,29 @@ void game::logic()
 
 	QTimer* timer = new QTimer(this);
 	timer->start(1000);
+	QTimer* timer1 = new QTimer(this);
+	timer1->start(100);
+	//if (this->snake->flag_direction_changed == true)
+	//{
+	//	snake->move();
+	//	std::cout << "changedmove" << std::endl;
+	//	this->snake->flag_direction_changed = false;
+	//	update();
+	//}
 	connect(timer, &QTimer::timeout, this, [=]() {
 		snake->move();
 		update();
+		timer->start(1000);
+		});
+	connect(timer1, &QTimer::timeout, this, [=]() {
+		if (this->snake->flag_direction_changed == true)
+		{
+			timer->start(500);
+			snake->move();
+			std::cout << "changedmove" << std::endl;
+			this->snake->flag_direction_changed = false;
+			update();
+		}
 		});
 }
 

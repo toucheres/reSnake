@@ -8,6 +8,7 @@ snakeClass::snakeClass()
 	this->direction = up;
 	this->state = alive;
 	this->speed = 1000;
+	this->flag_direction_changed=false;
 }
 
 snakeClass::~snakeClass()
@@ -26,18 +27,23 @@ void snakeClass::changeDirection(int tdirection)
 	if (tdirection == up && this->direction != down && this->direction != up)
 	{
 		this->direction = up;
+		this->flag_direction_changed=true;
+		
 	}
-	if (tdirection == down && this->direction != up && this->direction != down)
+	else if (tdirection == down && this->direction != up && this->direction != down)
 	{
 		this->direction = down;
+		this->flag_direction_changed = true;
 	}
-	if (tdirection == left && this->direction != right && this->direction != left)
+	else if (tdirection == left && this->direction != right && this->direction != left)
 	{
 		this->direction = left;
+		this->flag_direction_changed = true;
 	}
-	if (tdirection == right && this->direction != left && this->direction != right)
+	else if (tdirection == right && this->direction != left && this->direction != right)
 	{
 		this->direction = right;
+		this->flag_direction_changed = true;
 	}
 }
 

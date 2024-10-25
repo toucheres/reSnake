@@ -16,6 +16,7 @@ public:
 	int state;
 	int lenght;
 	int direction;
+	bool flag_direction_changed;
 	std::list<snakeNodeClass> body;
 	void move();
 	void changeDirection(int direction);

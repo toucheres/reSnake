@@ -16,6 +16,7 @@ public:
 	snakeClass* snake;
 	foodClass* food;
 	snakemapClass* snakemap;
+	
 	game(QWidget *parent = nullptr);
 	~game();
 	void init();
