@@ -3,6 +3,7 @@
 
 int main(int argc, char *argv[])
 {
+    system("chcp 65001");
     QApplication a(argc, argv);
     reSnake w;
     w.show();

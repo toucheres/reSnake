@@ -2,20 +2,23 @@
 
 snakemapClass::snakemapClass()
 {
+	this->ylengthnum = 21;
+	this->xlengthnum = 11;
+	//ylengthp xlengthp 在reSnake.cpp中初始化
 }
 
 snakemapClass::~snakemapClass()
 {
 }
 
-int snakemapClass::getpx()
+int snakemapClass::getpx(int x)
 {
-	return 0;
+	return this->xlengthp* (36.0/700+(x-1)*(57.0/700));
 }
 
-int snakemapClass::getpy()
+int snakemapClass::getpy(int y)
 {
-	return 0;
+	return this->ylengthp * ((y-1)*(57.0/1198));
 }
 
 void snakemapClass::addWall(int x, int y)

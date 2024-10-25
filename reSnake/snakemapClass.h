@@ -10,8 +10,8 @@ public:
 	int xlengthnum;
 	int ylengthnum;
 	std::vector<int>wallLocation;
-	int getpx();
-	int getpy();
+	int getpx(int x);
+	int getpy(int y);
 	void addWall(int x, int y);
 	void addWall(int index);
 	void addWall(int* indexArr,int size);

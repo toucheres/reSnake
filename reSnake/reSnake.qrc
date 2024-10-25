@@ -31,7 +31,7 @@
         <file>qtres/shetou/shetouleft.png</file>
         <file>qtres/shetou/shetouright.png</file>
         <file>qtres/shetou/shetouup.png</file>
-        <file>qtres/shetou/sheyoudown.png</file>
+        <file>qtres/shetou/shetoudown.png</file>
     </qresource>
     <qresource prefix="/shewan">
         <file>qtres/shewan/shewanleftdown.png</file>
@@ -40,10 +40,10 @@
         <file>qtres/shewan/shewanrightup.png</file>
     </qresource>
     <qresource prefix="/shewei">
-        <file>qtres/shewei/sheweidown c.png</file>
         <file>qtres/shewei/sheweileft.png</file>
         <file>qtres/shewei/sheweiright.png</file>
         <file>qtres/shewei/sheweiup.png</file>
+        <file>qtres/shewei/sheweidown.png</file>
     </qresource>
     <qresource prefix="/">
         <file>qtres/bg.png</file>

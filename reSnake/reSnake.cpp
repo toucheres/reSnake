@@ -15,9 +15,9 @@ reSnake::reSnake(QWidget *parent)
 {
     ui.setupUi(this);
     //setWindowFlags(Qt::WindowStaysOnTopHint|Qt::MaximizeUsingFullscreenGeometryHint);
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+    //setWindowFlags(Qt::WindowStaysOnTopHint);
     this->resize(600, 1027);
-    this->move(500,0);
+    this->move(900,0);
     this->ppage2 = new(select);
     //°´Å¥
     //std::cout<< "anxia";
@@ -43,9 +43,9 @@ reSnake::~reSnake()
 void reSnake::paintEvent(QPaintEvent* e)
 {
     QPainter* painter = new QPainter(this);
-    QPixmap* bkg = new QPixmap(":/qtres/bg.png");
-    *bkg = bkg->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    painter->drawPixmap(0, 0, *bkg);
+    QPixmap* bkg_pixmap = new QPixmap(":/qtres/bg.png");
+    *bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    painter->drawPixmap(0, 0, *bkg_pixmap);
     painter->end();
 }
 

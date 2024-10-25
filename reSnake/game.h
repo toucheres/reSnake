@@ -12,9 +12,17 @@ class game : public QMainWindow
 	Q_OBJECT
 
 public:
+	snakeClass* snake;
+	foodClass* food;
+	snakemapClass* snakemap;
 	game(QWidget *parent = nullptr);
 	~game();
+	void init();
+	void logic();
 	void paintEvent(QPaintEvent*);
+	void resizeEvent(QResizeEvent*);
+
+
 
 signals:
 	void backtopage2();
