@@ -21,7 +21,7 @@ public:
 	
 	game(QWidget *parent = nullptr);
 	~game();
-	void init(int speed = 1000,int size = 4);
+	void init(int speed = 100,int size = 4);
 	void logic();
 	void paintEvent(QPaintEvent*e);
 	void resizeEvent(QResizeEvent*e);

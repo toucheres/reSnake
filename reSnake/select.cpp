@@ -96,6 +96,14 @@ void select::gotopage2()
 void select::gotopage3()
 {
 	this->ppage3 = new game;
+	SmallWidget* tpsmallwidget = this->findChild<SmallWidget*>();
+
+	int val = tpsmallwidget->getnum();
+	//int val = 1000;
+	//std::cout << "val:" << val << std::endl;
+	
+	ppage3->init(getsppeedbyinput(val),4);
+
 	connect(this->ppage3, &game::backtopage2, this, &select::gotopage2);
 	this->ppage3->show();
 	this->hide();

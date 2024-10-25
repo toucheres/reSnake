@@ -20,7 +20,7 @@ game::game(QWidget* parent)
 	this->snake = new snakeClass;
 	this->snakemap = new snakemapClass;
 	this->food = new foodClass;
-	this->init();
+	//this->init();
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
 	this->move(900, 0);
