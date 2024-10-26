@@ -25,8 +25,11 @@ public:
 	void setlength(int length);
 	void skill();
 	snakeNodeClass getNextHead();
+	snakeNodeClass getNextTail();
 	void updataState();
 	void checkState();//纠错(自然前行与转向前行同时触发时有概率出现连续的两段蛇弯)
 	void printSnake();
+	void getLonger();
+	void getShorter();
 };
 

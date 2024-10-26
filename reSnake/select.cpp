@@ -12,19 +12,24 @@ select::select(QWidget *parent)
 {
 	ui.setupUi(this);
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
-	//this->setFixedSize(700, 1198);
+	//this->setFixedSize(700,\1198);
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
 	this->move(900, 0);
 	SmallWidget* smallwidget = new SmallWidget(this);
-	smallwidget->move(40,250);
+	smallwidget->move(180,350);
+	smallwidget->setnum(25);
 	//connect(this->ppage3,&game::backtopage2,this,&select::gotopage2);
 	//connect(ui.btn2, &QPushButton::clicked, this, [=]() {
 	//	emit this->backtopage1();
 	//	});
-	connect(ui.btn4, &QPushButton::clicked, this, [=]() {
-		emit this->gotopage3();
-		});
+	//connect(ui.btn4, &QPushButton::clicked, this, [=]() {
+	//	emit this->gotopage3();
+	//	});
+
+	ui.greencheck->setChecked(true);
+	ui.redcheck->setCheckable(false);
+	ui.normal->setChecked(true);
 
 	mypushbutton* text = new mypushbutton(QString(":/setting/qtres/setting/pause.png"));
 	text->setParent(this);
@@ -86,6 +91,17 @@ double select::getsppeedbyinput(double x)
 	return a * x * x + b * x + c;
 }
 
+int select::getlengthbyinput()
+{
+	if (ui.normal->isChecked())
+		return NORMAL_LENGTH;
+	else if (ui.short_2->isChecked())
+		return SHORT_LENGTH;
+	else if (ui.long_2->isChecked())
+		return LONG_LENGTH;
+	return 0;
+}
+
 void select::gotopage2()
 {
 	this->show();
@@ -97,12 +113,12 @@ void select::gotopage3()
 {
 	this->ppage3 = new game;
 	SmallWidget* tpsmallwidget = this->findChild<SmallWidget*>();
-
 	int val = tpsmallwidget->getnum();
 	//int val = 1000;
 	//std::cout << "val:" << val << std::endl;
 	
-	ppage3->init(getsppeedbyinput(val),4);
+
+	ppage3->init(getsppeedbyinput(val), getlengthbyinput());
 
 	connect(this->ppage3, &game::backtopage2, this, &select::gotopage2);
 	this->ppage3->show();

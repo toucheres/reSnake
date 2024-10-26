@@ -14,25 +14,12 @@
    <string>select</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="btn4">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>20</y>
-      <width>181</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>关卡</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>100</y>
-      <width>271</width>
+      <x>170</x>
+      <y>180</y>
+      <width>311</width>
       <height>125</height>
      </rect>
     </property>
@@ -61,29 +48,29 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QGroupBox" name="chooselength">
        <property name="title">
-        <string>选择速度</string>
+        <string>选择初始长度</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QRadioButton" name="speedfast">
+         <widget class="QRadioButton" name="long_2">
           <property name="text">
-           <string>快</string>
+           <string>长</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="speednormal">
+         <widget class="QRadioButton" name="normal">
           <property name="text">
            <string>中</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="speedslow">
+         <widget class="QRadioButton" name="short_2">
           <property name="text">
-           <string>慢</string>
+           <string>短</string>
           </property>
          </widget>
         </item>

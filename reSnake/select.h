@@ -17,6 +17,7 @@ public:
 	void keyPressEvent(QKeyEvent* e);
 	void keyReleaseEvent(QKeyEvent* e);
 	double getsppeedbyinput(double speed);
+	int getlengthbyinput();
 public slots:
 	void gotopage2();
 	void gotopage3();

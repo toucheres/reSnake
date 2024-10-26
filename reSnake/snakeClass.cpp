@@ -7,7 +7,7 @@ snakeClass::snakeClass()
 	this->lenght = 3;
 	this->direction = up;
 	this->state = alive;
-	//this->speed = 35;//speed将在game.init中初始化
+	this->speed = 1000;//speed将在game.init中初始化
 	this->flag_direction_changed = false;
 	this->direactionBefore = up;
 	this->is_moving = false;
@@ -100,6 +100,39 @@ snakeNodeClass snakeClass::getNextHead()
 	}
 	return tp;
 }
+
+snakeNodeClass snakeClass::getNextTail()
+{
+	snakeNodeClass tp = this->body.back();
+	switch(tp.direction)
+	{
+	case up:
+	{
+		tp.y++;
+		break;
+	}
+	case down:
+	{
+		tp.y--;
+		break;
+	}
+	case left:
+	{
+		tp.x++;
+		break;
+	}
+	case right:
+	{
+		tp.x--;
+		break;
+	}
+	}
+	tp.type=shewei;
+	return tp;
+}
+	
+	
+
 
 void snakeClass::updataState()
 {
@@ -229,7 +262,7 @@ void snakeClass::checkState()
 					it->type = shesheng;
 				}
 			}
-		}
+		} 
 	}
 }
 
@@ -243,8 +276,26 @@ void snakeClass::printSnake()
 		//if (it2 != this->body.end())
 			//std::cout << (*it2).x << " " << (*it2).y << " " << (*it2).type << " " << (*it2).direction << " " << (*it2).shewanDirection << std::endl;	
 	}
+	std::cout <<"长度为"<<this->lenght << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
+}
+
+void snakeClass::getLonger()
+{
+	this->body.back().type = shesheng;
+	this->body.push_back(getNextTail());
+	this->lenght++;
+}
+
+void snakeClass::getShorter()
+{
+	if (this->lenght > 2)
+	{
+		this->body.pop_back();
+		this->body.back().type = shewei;
+		this->lenght--;
+	}
 }

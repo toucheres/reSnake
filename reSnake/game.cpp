@@ -211,6 +211,14 @@ void game::keyPressEvent(QKeyEvent* event)
 		if (this->snake->flag_direction_changed == false)
 			this->snake->changeDirection(right);
 		break;
+	case Qt::Key_B:
+			qDebug() << "B";
+			this->snake->getLonger();
+		break;
+	case Qt::Key_N:
+		qDebug() << "N";
+		this->snake->getShorter();
+		break;
 
 	}
 
@@ -263,6 +271,7 @@ void game::init(int tspeed,int tsize)
 		this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2) + 1, (snakemap->ylengthnum / 2) + i +2, up, shesheng));
 	}
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei));
+	this->snake->lenght=tsize;
 }
 
 void game::logic()
