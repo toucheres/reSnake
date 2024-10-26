@@ -1,38 +1,71 @@
 #include "foodClass.h"
 
-foodClass::foodClass()
+foodClass::foodClass(snakeClass* tpsnake)
 {
+	avoidTheSnake = true;
+	avoidTheWall = true;
+	numOfFood = 0;
+	this->snakeonMap = tpsnake;
+	
+
 }
 
 foodClass::~foodClass()
 {
 }
 
-bool foodClass::avoidTheWall()
+
+
+
+void foodClass::setFood()
 {
-	return false;
+	if (this->foodLocation.empty())
+	{
+	start:
+		srand(time(NULL));
+		int tp = 1 + rand() % (NUM_OF_LENGTH_X * NUM_OF_LENGTH_Y);
+		for (std::list<snakeNodeClass>::const_iterator it = this->snakeonMap->body.begin(); it != this->snakeonMap->body.end(); it++)
+		{
+			int tplocation = it->x + ((it->y) - 1) * NUM_OF_LENGTH_X;
+			if (tplocation == tp)
+			{
+				goto start;
+			}
+		}
+		setFood(tp);
+	}
 }
 
-bool foodClass::avoidTheSnake()
+void foodClass::setFood(int num)
 {
-	return false;
+	this->foodLocation.push_back(num);
 }
 
-int foodClass::numOfFood()
+void foodClass::setFood(int x, int y)
 {
-	return 0;
+	int tplocation = (y-1) * NUM_OF_LENGTH_X + x;
+	this->foodLocation.push_back(tplocation);
 }
 
-void foodClass::setFoodnum(int num)
+void foodClass::setFood(int* arr, int tsize)
 {
+	for (int i = 0; i < tsize; i++)
+	{
+		setFood(arr[i]);
+	}
 }
 
-void foodClass::setFoodnum(int x, int y)
+void foodClass::isFoodEaten(int x, int y)
 {
-}
-
-void foodClass::setFoodnum(int* arr, int size)
-{
+	int tplocation = x + (y - 1) * NUM_OF_LENGTH_X;
+	for (std::vector<int>::iterator it = foodLocation.begin(); it != foodLocation.end(); it++)
+	{
+		if (tplocation == *it)
+		{
+			foodLocation.erase(it);
+			numOfFood--;
+		}
+	}
 }
 
 void foodClass::foodmove()

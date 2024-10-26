@@ -2,6 +2,9 @@
 #define LONG_LENGTH 7
 #define NORMAL_LENGTH 5
 #define SHORT_LENGTH 3
+#define NUM_OF_LENGTH_X 11
+#define NUM_OF_LENGTH_Y 21
+
 
 //√∂æŸ¿‡–Õ
 enum {

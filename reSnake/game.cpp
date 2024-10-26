@@ -18,8 +18,8 @@ game::game(QWidget* parent)
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
 	//this->setFixedSize(700, 1198);
 	this->snake = new snakeClass;
-	this->snakemap = new snakemapClass;
-	this->food = new foodClass;
+	this->snakemap = new snakemapClass(snake);
+	this->food = new foodClass(snake);
 	//this->init();
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
@@ -34,13 +34,14 @@ game::game(QWidget* parent)
 }
 void game::paintEvent(QPaintEvent* e)
 {
-	snake->printSnake();
+	//snake->printSnake();
 	snake->checkState();
 	//std::cout << snake->body.begin()->x << " " << snake->body.begin()->y << std::endl;
 	QPainter* painter = new QPainter(this);
 	//载入
 	QPixmap* bkg_pixmap = new QPixmap(":/qtres/bg.png");
 	
+	QPixmap* food_pixmap = new QPixmap(":/food/qtres/food/food.png");
 
 	QPixmap* shesheng_pixmap = new QPixmap(":/shesheng/qtres/shesheng/shesheng.png");
 
@@ -158,6 +159,18 @@ void game::paintEvent(QPaintEvent* e)
 		}
 
 	}
+	//food
+
+	for (std::vector<int>::iterator it = this->food->foodLocation.begin(); it != this->food->foodLocation.end(); it++)
+	{
+		int x = 1+*it % NUM_OF_LENGTH_X;
+		int y = 1+*it / NUM_OF_LENGTH_X;
+		int px = snakemap->getpx(x);
+		int py = snakemap->getpx(y);
+		painter->drawPixmap(px, py, *food_pixmap);
+
+	}
+	snake->checkState();
 	painter->end();
 	
 
@@ -295,6 +308,8 @@ void game::logic()
 		timer->start(this->snake->speed);//转向后500ms移动后设置为正常速度
 		});
 	connect(timer1, &QTimer::timeout, this, [=]() {
+		snake->checkState();
+		this->food->setFood();
 		if (this->snake->flag_direction_changed == true)
 		{
 			timer->start(this->snake->speed/2);//转向后500ms才开始移动
