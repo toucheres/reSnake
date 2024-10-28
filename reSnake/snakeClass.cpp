@@ -138,7 +138,7 @@ void snakeClass::updataState()
 {
 	this->body.front().direction = this->direction;
 
-	std::list<snakeNodeClass>::iterator it = this->body.begin();
+	std::deque<snakeNodeClass>::iterator it = this->body.begin();
 	it++;
 	if (this->flag_direction_changed == false)
 	{
@@ -242,16 +242,16 @@ void snakeClass::updataState()
 
 void snakeClass::checkState()
 {
-	for (std::list<snakeNodeClass>::iterator it = this->body.begin(); it != this->body.end(); it++)
+	for (std::deque<snakeNodeClass>::iterator it = this->body.begin(); it != this->body.end(); it++)
 	{
 		if (it != this->body.begin() && it->x != this->body.back().x && it->y != this->body.back().y)//排除首尾
 		{
 			it--;
-			std::list<snakeNodeClass>::iterator itpre = it;
+			std::deque<snakeNodeClass>::iterator itpre = it;
 			it++;
 
 			it++;
-			std::list<snakeNodeClass>::iterator itnext = it;
+			std::deque<snakeNodeClass>::iterator itnext = it;
 			it--;
 
 			if ((itpre->x == it->x && it->x == itnext->x) || (itpre->y == it->y && it->y == itnext->y))
@@ -268,9 +268,9 @@ void snakeClass::checkState()
 
 void snakeClass::printSnake()
 {
-	for (std::list<snakeNodeClass>::iterator it = this->body.begin(); it != this->body.end(); it++)
+	for (std::deque<snakeNodeClass>::iterator it = this->body.begin(); it != this->body.end(); it++)
 	{
-		//std::list<snakeNodeClass>::iterator it2 = it++;
+		//std::deque<snakeNodeClass>::iterator it2 = it++;
 		//it--;
 		std::cout << (*it).x << " " << (*it).y << " " << (*it).type << " " << (*it).direction << " " << (*it).shewanDirection << std::endl;
 		//if (it2 != this->body.end())

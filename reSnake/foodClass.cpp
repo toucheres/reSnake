@@ -1,4 +1,5 @@
 #include "foodClass.h"
+#include "snakeEnum.h"
 
 foodClass::foodClass(snakeClass* tpsnake)
 {
@@ -24,7 +25,7 @@ void foodClass::setFood()
 	start:
 		srand(time(NULL));
 		int tp = 1 + rand() % (NUM_OF_LENGTH_X * NUM_OF_LENGTH_Y);
-		for (std::list<snakeNodeClass>::const_iterator it = this->snakeonMap->body.begin(); it != this->snakeonMap->body.end(); it++)
+		for (std::deque<snakeNodeClass>::const_iterator it = this->snakeonMap->body.begin(); it != this->snakeonMap->body.end(); it++)
 		{
 			int tplocation = it->x + ((it->y) - 1) * NUM_OF_LENGTH_X;
 			if (tplocation == tp)

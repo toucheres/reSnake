@@ -12,21 +12,22 @@ select::select(QWidget *parent)
 {
 	ui.setupUi(this);
 	//setWindowFlags(Qt::WindowStaysOnTopHint | Qt::MaximizeUsingFullscreenGeometryHint);
-	//this->setFixedSize(700,\1198);
+	//this->setFixedSize(PX_OF_WIDTH_OF_MAP,\PX_OF_LENGTH_OF_MAP);
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
 	this->move(900, 0);
-	SmallWidget* smallwidget = new SmallWidget(this);
-	smallwidget->move(180,350);
-	smallwidget->setnum(25);
-	//connect(this->ppage3,&game::backtopage2,this,&select::gotopage2);
-	//connect(ui.btn2, &QPushButton::clicked, this, [=]() {
-	//	emit this->backtopage1();
-	//	});
-	//connect(ui.btn4, &QPushButton::clicked, this, [=]() {
-	//	emit this->gotopage3();
-	//	});
+	SmallWidget* selectspeed = new SmallWidget(this);
+	selectspeed->move(100,140);
+	selectspeed->setnum(50);
+	selectspeed->setParent(this);
+	selectspeed->setObjectName("pselectspeed");
 
+	SmallWidget* selectsize = new SmallWidget(this);
+	selectsize->move(100, 236);
+	selectsize->setnum(50);
+	selectsize->setParent(this);
+	selectsize->setObjectName("pselectsize");
+	
 	ui.greencheck->setChecked(true);
 	ui.redcheck->setCheckable(false);
 	ui.normal->setChecked(true);
@@ -102,6 +103,11 @@ int select::getlengthbyinput()
 	return 0;
 }
 
+double select::getsizebyinput(double x)
+{
+	return 2 - (3.0/200)*x;
+}
+
 void select::gotopage2()
 {
 	this->show();
@@ -112,13 +118,17 @@ void select::gotopage2()
 void select::gotopage3()
 {
 	this->ppage3 = new game;
-	SmallWidget* tpsmallwidget = this->findChild<SmallWidget*>();
-	int val = tpsmallwidget->getnum();
-	//int val = 1000;
-	//std::cout << "val:" << val << std::endl;
-	
 
-	ppage3->init(getsppeedbyinput(val), getlengthbyinput());
+	SmallWidget* tpsmallwidget = this->findChild<SmallWidget*>("pselectspeed");
+	int valofspeed = tpsmallwidget->getnum();
+
+	SmallWidget* tpsmallwidget2 = this->findChild<SmallWidget*>("pselectsize");
+	int valofsize = tpsmallwidget2->getnum();
+
+	
+	//getsizebyinput(valofsize)
+	this->snakewidth=getsizebyinput(valofsize);
+	ppage3->init(getsppeedbyinput(valofspeed), getlengthbyinput(), getsizebyinput(valofsize));
 
 	connect(this->ppage3, &game::backtopage2, this, &select::gotopage2);
 	this->ppage3->show();

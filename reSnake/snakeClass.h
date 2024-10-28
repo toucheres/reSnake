@@ -1,5 +1,7 @@
 #pragma once
 #include <list>
+#include <vector>
+#include <deque>
 #include "snakeNodeClass.h"
 #include "snakeEnum.h"
 #include <QDebug>
@@ -19,7 +21,7 @@ public:
 	bool flag_direction_changed;
 	bool is_moving;
 	int direactionBefore;
-	std::list<snakeNodeClass> body;
+	std::deque<snakeNodeClass> body;
 	void move();
 	void changeDirection(int direction);
 	void setlength(int length);

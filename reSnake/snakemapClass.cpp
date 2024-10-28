@@ -12,14 +12,14 @@ snakemapClass::~snakemapClass()
 {
 }
 
-int snakemapClass::getpx(int x)
+double snakemapClass::getpx(double x)
 {
-	return this->xlengthp* (36.0/700+(x-1)*(57.0/700));
+	return this->xlengthp* (36.0/PX_OF_WIDTH_OF_MAP+(x-1)*(PX_OF_LATTICE/PX_OF_WIDTH_OF_MAP));
 }
 
-int snakemapClass::getpy(int y)
+double snakemapClass::getpy(double y)
 {
-	return this->ylengthp * ((y-1)*(57.0/1198));
+	return this->ylengthp * ((y-1)*(PX_OF_LATTICE/PX_OF_LENGTH_OF_MAP));
 }
 
 void snakemapClass::addWall(int x, int y)

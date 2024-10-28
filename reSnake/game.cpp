@@ -79,13 +79,13 @@ void game::paintEvent(QPaintEvent* e)
 	*bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	for (std::vector<QPixmap*>::iterator it = pixmaps.begin(); it != pixmaps.end(); it++)
 	{
-		**it = (*it)->scaled((58.0/700)*snakemap->xlengthp, (58.0 / 1198) * snakemap->ylengthp, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		**it = (*it)->scaled(((PX_OF_LATTICE + 1) /PX_OF_WIDTH_OF_MAP)*snakemap->xlengthp, ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		
 	}
 	//背景
 	painter->drawPixmap(0, 0, *bkg_pixmap);
 	//snake
-	for (std::list<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++)
+	for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++)
 	{
 		int px = snakemap->getpx(it->x);
 		int py = snakemap->getpy(it->y);
@@ -268,7 +268,7 @@ game::~game()
 
 }
 
-void game::init(int tspeed,int tsize)
+void game::init(int tspeed,int tlength,double twight)
 {
 	std::cout<<"init"<<std::endl;
 	//snakeNodeClass newNode(snakemap->getpx((snakemap->xlengthnum / 2) + 1),
@@ -276,15 +276,19 @@ void game::init(int tspeed,int tsize)
 	//	up,
 	//	shetou);
 	//this->snake->body.push_back(newNode);
+	this->snakewidth=twight;
+	this->snakemap->snakewidth=twight;
+
+
 	this->snake->speed = tspeed;
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 1, up, shetou));
 	int i = 0;
-	for (i = 0; i < tsize - 2; i++)
+	for (i = 0; i < tlength - 2; i++)
 	{
 		this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2) + 1, (snakemap->ylengthnum / 2) + i +2, up, shesheng));
 	}
 	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei));
-	this->snake->lenght=tsize;
+	this->snake->lenght= tlength;
 }
 
 void game::logic()

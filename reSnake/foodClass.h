@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "snakeEnum.h"
+
 #include<ctime>
 #include"snakeClass.h"
 class foodClass

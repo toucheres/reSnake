@@ -11,10 +11,11 @@ public:
 	int ylengthp;
 	int xlengthnum;
 	int ylengthnum;
+	double snakewidth=1;
 	const snakeClass* snakeonMap;
 	std::vector<int>wallLocation;
-	int getpx(int x);
-	int getpy(int y);
+	double getpx(double x);
+	double getpy(double y);
 	void addWall(int x, int y);
 	void addWall(int index);
 	void addWall(int* indexArr,int size);
