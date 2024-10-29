@@ -60,7 +60,7 @@ void game::paintEvent(QPaintEvent* e)
 	QPixmap* shewanleftup_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanleftup.png");
 	QPixmap* shewanrightdown_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanrightdown.png");
 
-	std::vector<QPixmap*> pixmaps = {shesheng_pixmap,shetouleft_pixmap,shetouright_pixmap,shetouup_pixmap,shetoudown_pixmap,sheweileft_pixmap,sheweiright_pixmap,sheweidown_pixmap,sheweiup_pixmap,shewanleftdown_pixmap,shewanrightup_pixmap,shewanleftup_pixmap,shewanrightdown_pixmap };
+	std::vector<QPixmap*> pixmaps = {shesheng_pixmap,shetouleft_pixmap,shetouright_pixmap,shetouup_pixmap,shetoudown_pixmap,sheweileft_pixmap,sheweiright_pixmap,sheweidown_pixmap,sheweiup_pixmap,shewanleftdown_pixmap,shewanrightup_pixmap,shewanleftup_pixmap,shewanrightdown_pixmap,food_pixmap };
 	int tpi = 0;
 	for (std::vector<QPixmap*>::iterator it = pixmaps.begin(); it != pixmaps.end(); it++)
 	{
@@ -163,10 +163,10 @@ void game::paintEvent(QPaintEvent* e)
 
 	for (std::vector<int>::iterator it = this->food->foodLocation.begin(); it != this->food->foodLocation.end(); it++)
 	{
-		int x = 1+*it % NUM_OF_LENGTH_X;
-		int y = 1+*it / NUM_OF_LENGTH_X;
-		int px = snakemap->getpx(x);
-		int py = snakemap->getpx(y);
+		int x = *it %  (int)(this->snakemap->xlengthnum );
+		int y = 1+*it / (int)(this->snakemap->xlengthnum );
+		int px = snakemap->getpx(x-0.3);
+		int py = snakemap->getpx(y-0.8);
 		painter->drawPixmap(px, py, *food_pixmap);
 
 	}
@@ -262,6 +262,31 @@ void game::keyReleaseEvent(QKeyEvent* e)
 {
 }
 
+void game::isover()
+{
+	int i = 0;
+	int limitx = 0;
+	int limity = 0;
+	if (this->snakewidth == 1 || this->snakewidth == 2 || this->snakewidth == 0.5)
+	{
+		limitx = snakemap->xlengthnum;
+		limity = snakemap->ylengthnum;
+	}
+	else
+	{
+		limitx = snakemap->xlengthnum + 1;
+		limity = snakemap->ylengthnum + 1;
+	}
+	if (this->snake->body.front().x <= 0 || this->snake->body.front().x > limitx || this->snake->body.front().y <= 0 || this->snake->body.front().y > limity)
+	{
+		this->snake->live = dead;
+		std::cout << "game over" << std::endl;
+		this->backtopage2();
+	}
+	
+	
+}
+
 game::~game()
 {
 	delete snake;
@@ -298,7 +323,8 @@ void game::logic()
 	QTimer* timer1 = new QTimer(this);
 	timer1->start(100);
 	QTimer* timer2 = new QTimer(this);
-	timer2->start(1000);
+	timer2->start(3000);
+
 	//if (this->snake->flag_direction_changed == true)
 	//{
 	//	snake->move();
@@ -322,10 +348,64 @@ void game::logic()
 			this->snake->flag_direction_changed = false;
 			update();
 		}
+		this->isover();
+
+
+		
+	//for (auto it = this->snake->body.begin(); it != this->snake->body.end(); ++it)
+	//	{
+	//		snakeNodeClass& node = *it;
+	//		this->food->isFoodEaten(node.x, node.y);
+	//	}
+        std::cout << "";
+		//---------------------------------------------
+		if (!this) {
+			// 处理蛇身为空的情况
+			return;
+		}
+		if (!this->snake) {
+			// 处理蛇身为空的情况
+			return;
+		}
+
+		if (this->snake == (snakeClass*)0xdddddddddddddddd) {
+			// 处理蛇身为空的情况
+			return;
+		}
+
+		if (this->snake->body.empty()) {
+			// 处理蛇身为空的情况
+			return;
+		}
+		
+
+		int flag = 0;
+		for (auto it = this->snake->body.begin(); it != this->snake->body.end(); ++it) {
+			snakeNodeClass& node = *it;
+			if (snake->live==alive)
+			{ // 根据实际情况定义有效性检查
+				if (this->food->isFoodEaten(node.x, node.y))
+				{
+					flag = 1;
+				}
+			}
+			update();
+		}
+		if (flag == 1)
+		{
+			this->snake->getLonger();
+			flag = 0;
+		}
+
+		//----------------------------
+
+			
+		
 		//this->snake->checkState();
 		});
 	connect(timer2, &QTimer::timeout, this, [=]() {
 		//this->snake->checkState();
+		//this->food->deleteFood();
 		});
 }
 

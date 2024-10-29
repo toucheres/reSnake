@@ -14,6 +14,7 @@ public:
 	snakeClass();
 	~snakeClass();
 	int color;
+	int live;
 	int speed;
 	int state;
 	int lenght;

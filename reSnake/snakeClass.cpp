@@ -11,6 +11,7 @@ snakeClass::snakeClass()
 	this->flag_direction_changed = false;
 	this->direactionBefore = up;
 	this->is_moving = false;
+	this->live=alive;
 }
 
 snakeClass::~snakeClass()
@@ -265,6 +266,7 @@ void snakeClass::checkState()
 		} 
 	}
 }
+
 
 void snakeClass::printSnake()
 {

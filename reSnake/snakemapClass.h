@@ -9,8 +9,8 @@ public:
 	~snakemapClass();
 	int xlengthp;
 	int ylengthp;
-	int xlengthnum;
-	int ylengthnum;
+	double xlengthnum;
+	double ylengthnum;
 	double snakewidth=1;
 	const snakeClass* snakeonMap;
 	std::vector<int>wallLocation;

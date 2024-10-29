@@ -8,6 +8,8 @@ class foodClass
 public:
 	foodClass(snakeClass* tsnake);
 	~foodClass();
+	double xlengthnum;
+	double ylengthnum;
 	std::vector<int> foodLocation;
 	bool avoidTheWall;
 	bool avoidTheSnake;
@@ -17,7 +19,8 @@ public:
 	void setFood(int num);
 	void setFood(int x,int y);
 	void setFood(int *arr, int size);
-	void isFoodEaten(int x,int y);
+	bool isFoodEaten(int x,int y);
+	void deleteFood();
 	void foodmove();
 };
 

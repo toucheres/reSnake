@@ -29,6 +29,7 @@ public:
 	void resizeEvent(QResizeEvent*e);
 	void keyPressEvent(QKeyEvent*e);
 	void keyReleaseEvent(QKeyEvent*e);
+	void isover();
 
 signals:
 	void backtopage2();

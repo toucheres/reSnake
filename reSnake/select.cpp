@@ -105,9 +105,8 @@ int select::getlengthbyinput()
 
 double select::getsizebyinput(double x)
 {
-	return 2 - (3.0/200)*x;
+	return 0.0001 * x * x + 0.005 * x + 0.5;
 }
-
 void select::gotopage2()
 {
 	this->show();
@@ -128,7 +127,18 @@ void select::gotopage3()
 	
 	//getsizebyinput(valofsize)
 	this->snakewidth=getsizebyinput(valofsize);
+	
+	this->ppage3->snakemap->snakewidth= getsizebyinput(valofsize);
+	this->ppage3->snakemap->xlengthnum*= getsizebyinput(valofsize);
+	this->ppage3->snakemap->ylengthnum*= getsizebyinput(valofsize);
+	this->ppage3->food->xlengthnum=this->ppage3->snakemap->xlengthnum;
+	this->ppage3->food->ylengthnum=this->ppage3->snakemap->ylengthnum;
+
+	//this->ppage3->snakemap->snakewidth = 1;
+	//this->ppage3->snakemap->xlengthnum *= 1;
+	//this->ppage3->snakemap->ylengthnum *= 1;
 	ppage3->init(getsppeedbyinput(valofspeed), getlengthbyinput(), getsizebyinput(valofsize));
+	//ppage3->init(getsppeedbyinput(valofspeed), 3, 1);
 
 	connect(this->ppage3, &game::backtopage2, this, &select::gotopage2);
 	this->ppage3->show();

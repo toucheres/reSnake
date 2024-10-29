@@ -2,8 +2,8 @@
 
 snakemapClass::snakemapClass(snakeClass*tpsnake)
 {
-	this->ylengthnum = NUM_OF_LENGTH_Y;
-	this->xlengthnum = NUM_OF_LENGTH_X;
+	this->ylengthnum = NUM_OF_LENGTH_Y / snakewidth;
+	this->xlengthnum = NUM_OF_LENGTH_X / snakewidth;
 	this->snakeonMap = tpsnake;
 	//ylengthp xlengthp 在reSnake.cpp中初始化
 }
