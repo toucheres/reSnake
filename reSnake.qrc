@@ -1,0 +1,52 @@
+<RCC>
+    <qresource prefix="/food">
+        <file>qtres/food/food.png</file>
+    </qresource>
+    <qresource prefix="/other">
+        <file>qtres/other/DM_20240928214724_021.PNG</file>
+        <file>qtres/other/DM_20240928214724_022.PNG</file>
+        <file>qtres/other/DM_20240928214724_023.PNG</file>
+        <file>qtres/other/DM_20240928214724_024.PNG</file>
+        <file>qtres/other/DM_20240928214724_025.PNG</file>
+        <file>qtres/other/DM_20240928214724_026.PNG</file>
+        <file>qtres/other/DM_20240928214724_027.PNG</file>
+        <file>qtres/other/DM_20240928214724_028.PNG</file>
+        <file>qtres/other/DM_20240928214724_029.PNG</file>
+        <file>qtres/other/DM_20240928214724_030.PNG</file>
+        <file>qtres/other/DM_20240928214724_031.PNG</file>
+        <file>qtres/other/DM_20240928214724_032.PNG</file>
+        <file>qtres/other/DM_20240928214724_033.PNG</file>
+        <file>qtres/other/DM_20240928214724_034.PNG</file>
+        <file>qtres/other/DM_20240928214724_035.PNG</file>
+    </qresource>
+    <qresource prefix="/setting">
+        <file>qtres/setting/pause.png</file>
+        <file>qtres/setting/sound.png</file>
+        <file>qtres/setting/yinyue.png</file>
+    </qresource>
+    <qresource prefix="/shesheng">
+        <file>qtres/shesheng/shesheng.png</file>
+    </qresource>
+    <qresource prefix="/shetou">
+        <file>qtres/shetou/shetouleft.png</file>
+        <file>qtres/shetou/shetouright.png</file>
+        <file>qtres/shetou/shetouup.png</file>
+        <file>qtres/shetou/shetoudown.png</file>
+    </qresource>
+    <qresource prefix="/shewan">
+        <file>qtres/shewan/shewanleftdown.png</file>
+        <file>qtres/shewan/shewanleftup.png</file>
+        <file>qtres/shewan/shewanrightdown.png</file>
+        <file>qtres/shewan/shewanrightup.png</file>
+    </qresource>
+    <qresource prefix="/shewei">
+        <file>qtres/shewei/sheweileft.png</file>
+        <file>qtres/shewei/sheweiright.png</file>
+        <file>qtres/shewei/sheweiup.png</file>
+        <file>qtres/shewei/sheweidown.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qtres/bg.png</file>
+        <file>qtres/bgmusic.mp3</file>
+    </qresource>
+</RCC>
