@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
 
 if (WIN32)
-    project(MY_PROJECT LANGUAGES CXX)
+    project(reSnake LANGUAGES CXX)
 elseif(UNIX)
-    project(MY_PROJECT)
+    project(reSnake)
 endif()
 
 #set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
@@ -41,20 +41,30 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
     $<$<CONFIG:RELWITHDEBINFO>:QT_MESSAGELOGCONTEXT>
 )
 
+#${CMAKE_AUTOUIC_SEARCH_PATHS}可能默认为cmakelists同级目录
+message("--------------------------")
+message(STATUS ${CMAKE_AUTOUIC_SEARCH_PATHS})
+message("--------------------------")
+
+#!!!必须将包含.ui .qrc的目录写入
 # Add the forms directory to the AUTOUIC search paths
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_AUTOUIC_SEARCH_PATHS} ${FORMS_DIR})
 
+message("--------------------------")
+message(STATUS ${CMAKE_AUTOUIC_SEARCH_PATHS})
+message("--------------------------")
+
 # Add the executable
 if (WIN32) 
-    add_executable(MY_PROJECT WIN32 ${SOURCES})
+    add_executable(reSnake WIN32 ${SOURCES})
 elseif(UNIX)
-    add_executable(MY_PROJECT ${SOURCES})
+    add_executable(reSnake ${SOURCES})
 endif()
 
 # Add the target includes for MY_PROJECT 
-target_include_directories(MY_PROJECT PRIVATE ${FORMS_DIR})
-target_include_directories(MY_PROJECT PRIVATE ${INCLUDE_DIR})
-target_include_directories(MY_PROJECT PRIVATE ${SOURCE_DIR})
+target_include_directories(reSnake PRIVATE ${FORMS_DIR})
+target_include_directories(reSnake PRIVATE ${INCLUDE_DIR})
+target_include_directories(reSnake PRIVATE ${SOURCE_DIR})
 
 #===================== LINKING LIBRARIES =======================#
-target_link_libraries(MY_PROJECT Qt6::Widgets Qt6::Multimedia)
+target_link_libraries(reSnake Qt6::Widgets Qt6::Multimedia)
