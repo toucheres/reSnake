@@ -8,12 +8,12 @@ endif()
 
 #set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
 
-#======================= INCLUSION OF Qt =======================#
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_PREFIX_PATH $ENV{QTDIR})
+# #======================= INCLUSION OF Qt =======================#
+# set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# set(CMAKE_AUTOMOC ON)
+# set(CMAKE_AUTOUIC ON)
+# set(CMAKE_AUTORCC ON)
+# set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 
 find_package(Qt6Core REQUIRED)
 find_package(Qt6Widgets REQUIRED)
@@ -60,7 +60,12 @@ if (WIN32)
 elseif(UNIX)
     add_executable(reSnake ${SOURCES})
 endif()
-
+# 建议使用set_target_properties来代替全局set
+set_target_properties(reSnake PROPERTIES
+    AUTOMOC ON    # 处理Q_OBJECT宏
+    AUTOUIC ON    # 处理.ui文件
+    AUTORCC ON    # 处理.qrc文件
+)
 # Add the target includes for MY_PROJECT 
 target_include_directories(reSnake PRIVATE ${FORMS_DIR})
 target_include_directories(reSnake PRIVATE ${INCLUDE_DIR})
