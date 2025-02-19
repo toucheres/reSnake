@@ -7,10 +7,12 @@
 #include<list>
 #include "snakeEnum.h"
 #include "select.h"
+
 game::game(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	this->initpixmap();
 	//ui.btn3->setAutoDefault(false);
 	//ui.btn3->setDefault(false);
 	//ui.btn3->setShortcutAutoRepeat(false);
@@ -32,44 +34,13 @@ game::game(QWidget* parent)
 
 	logic();
 }
+
 void game::paintEvent(QPaintEvent* e)
 {
     snake->checkState();
 
-    std::unique_ptr<QPainter> painter = std::make_unique<QPainter>(this);
-    std::unique_ptr<QPixmap> bkg_pixmap = std::make_unique<QPixmap>(":/qtres/bg.png");
-    std::unique_ptr<QPixmap> food_pixmap = std::make_unique<QPixmap>(":/food/qtres/food/food.png");
-    std::unique_ptr<QPixmap> shesheng_pixmap = std::make_unique<QPixmap>(":/shesheng/qtres/shesheng/shesheng.png");
-    std::unique_ptr<QPixmap> shetouleft_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouleft.png");
-	std::unique_ptr<QPixmap> shetouright_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouright.png");
-	std::unique_ptr<QPixmap> shetouup_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouup.png");
-    std::unique_ptr<QPixmap> shetoudown_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetoudown.png");
-    std::unique_ptr<QPixmap> sheweiright_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweileft.png");
-    std::unique_ptr<QPixmap> sheweileft_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiright.png");
-    std::unique_ptr<QPixmap> sheweiup_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweidown.png");
-    std::unique_ptr<QPixmap> sheweidown_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiup.png");
-    std::unique_ptr<QPixmap> shewanleftdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftdown.png");
-    std::unique_ptr<QPixmap> shewanrightup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightup.png");
-    std::unique_ptr<QPixmap> shewanleftup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftup.png");
-    std::unique_ptr<QPixmap> shewanrightdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightdown.png");
-
-    std::vector<std::unique_ptr<QPixmap>> pixmaps;
-    pixmaps.push_back(std::move(shesheng_pixmap));//0
-    pixmaps.push_back(std::move(shetouleft_pixmap));//1
-    pixmaps.push_back(std::move(shetouright_pixmap));//2
-    pixmaps.push_back(std::move(shetouup_pixmap));//3
-    pixmaps.push_back(std::move(shetoudown_pixmap));//4
-    pixmaps.push_back(std::move(sheweileft_pixmap));//5
-    pixmaps.push_back(std::move(sheweiright_pixmap));//6
-    pixmaps.push_back(std::move(sheweidown_pixmap));//7
-    pixmaps.push_back(std::move(sheweiup_pixmap));//8
-    pixmaps.push_back(std::move(shewanleftdown_pixmap));//9
-    pixmaps.push_back(std::move(shewanrightup_pixmap));//10
-    pixmaps.push_back(std::move(shewanleftup_pixmap));//11
-    pixmaps.push_back(std::move(shewanrightdown_pixmap));//12
-    pixmaps.push_back(std::move(food_pixmap));//13
-
-    int tpi = 0;
+	std::unique_ptr<QPainter> painter = std::make_unique<QPainter>(this);
+	int tpi = 0;
     for (auto& pixmap : pixmaps) {
         tpi++;
         if (pixmap && !pixmap->isNull()) {
@@ -78,17 +49,16 @@ void game::paintEvent(QPaintEvent* e)
             std::cout << "无效的QPixmap 指针,或图像为空" << tpi << std::endl;
         }
     }
-
-    *bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    for (auto& pixmap : pixmaps) {
-        *pixmap = pixmap->scaled(((PX_OF_LATTICE + 1) / PX_OF_WIDTH_OF_MAP) * snakemap->xlengthp,
+	for (int i = 0; i < 14;i++) {
+		
+        *pixmaps[i] = pixmaps[i]->scaled(((PX_OF_LATTICE + 1) / PX_OF_WIDTH_OF_MAP) * snakemap->xlengthp,
                                  ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp,
                                  Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     }
 
-    painter->drawPixmap(0, 0, *bkg_pixmap);
+	painter->drawPixmap(0, 0, *pixmaps[14]);
 
-    for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++) {
+	for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++) {
         int px = snakemap->getpx(it->x);
         int py = snakemap->getpy(it->y);
         switch (it->type) {
@@ -163,6 +133,7 @@ void game::resizeEvent(QResizeEvent*)
 	std::cout << "resize" << std::endl;
 	snakemap->xlengthp = this->width();
 	snakemap->ylengthp = this->height();
+	*pixmaps[14] = pixmaps[14]->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 }
 
 void game::keyPressEvent(QKeyEvent* event)
@@ -269,6 +240,11 @@ void game::isover()
 	
 }
 
+void game::closeEvent(QCloseEvent* event)
+{
+	this->backtopage2();
+}
+
 game::~game()
 {
 	delete snake;
@@ -298,6 +274,41 @@ void game::init(int tspeed,int tlength,double twight)
 	}
 	this->snake->body.emplace_back((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei);
 	this->snake->lenght= tlength;
+}
+
+void game::initpixmap()
+{
+	std::unique_ptr<QPixmap> bkg_pixmap = std::make_unique<QPixmap>(":/qtres/bg.png");
+	std::unique_ptr<QPixmap> food_pixmap = std::make_unique<QPixmap>(":/food/qtres/food/food.png");
+	std::unique_ptr<QPixmap> shesheng_pixmap = std::make_unique<QPixmap>(":/shesheng/qtres/shesheng/shesheng.png");
+	std::unique_ptr<QPixmap> shetouleft_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouleft.png");
+	std::unique_ptr<QPixmap> shetouright_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouright.png");
+	std::unique_ptr<QPixmap> shetouup_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouup.png");
+	std::unique_ptr<QPixmap> shetoudown_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetoudown.png");
+	std::unique_ptr<QPixmap> sheweiright_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweileft.png");
+	std::unique_ptr<QPixmap> sheweileft_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiright.png");
+	std::unique_ptr<QPixmap> sheweiup_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweidown.png");
+	std::unique_ptr<QPixmap> sheweidown_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiup.png");
+	std::unique_ptr<QPixmap> shewanleftdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftdown.png");
+	std::unique_ptr<QPixmap> shewanrightup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightup.png");
+	std::unique_ptr<QPixmap> shewanleftup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftup.png");
+	std::unique_ptr<QPixmap> shewanrightdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightdown.png");
+
+	pixmaps.push_back(std::move(shesheng_pixmap));		  // 0
+	pixmaps.push_back(std::move(shetouleft_pixmap));	  // 1
+	pixmaps.push_back(std::move(shetouright_pixmap));	  // 2
+	pixmaps.push_back(std::move(shetouup_pixmap));		  // 3
+	pixmaps.push_back(std::move(shetoudown_pixmap));	  // 4
+	pixmaps.push_back(std::move(sheweileft_pixmap));	  // 5
+	pixmaps.push_back(std::move(sheweiright_pixmap));	  // 6
+	pixmaps.push_back(std::move(sheweidown_pixmap));	  // 7
+	pixmaps.push_back(std::move(sheweiup_pixmap));		  // 8
+	pixmaps.push_back(std::move(shewanleftdown_pixmap));  // 9
+	pixmaps.push_back(std::move(shewanrightup_pixmap));	  // 10
+	pixmaps.push_back(std::move(shewanleftup_pixmap));	  // 11
+	pixmaps.push_back(std::move(shewanrightdown_pixmap)); // 12
+	pixmaps.push_back(std::move(food_pixmap));			  // 13
+	pixmaps.push_back(std::move(bkg_pixmap));			  // 14
 }
 
 void game::logic()

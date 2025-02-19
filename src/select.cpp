@@ -149,3 +149,8 @@ void selectpage::gotopage3()
 	this->ppage3->show();
 	this->hide();
 }
+
+void selectpage::closeEvent(QCloseEvent* event)
+{
+	emit this->backtopage1();
+}

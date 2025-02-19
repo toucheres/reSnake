@@ -28,4 +28,5 @@ signals:
 
 private:
 	Ui::selectClass ui;
+	void closeEvent(QCloseEvent* event) override;
 };

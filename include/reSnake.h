@@ -22,4 +22,5 @@ public slots:
 private:
     Ui::reSnakeClass ui;
     QTimer* tptime = new QTimer(this);
+    void loadmusic(); // 确保在 QApplication 初始化后调用
 };

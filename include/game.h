@@ -24,15 +24,18 @@ public:
 	game(QWidget *parent = nullptr);
 	~game();
 	void init(int speed = 100,int length = 4,double wight = 1 );
+	void initpixmap();
 	void logic();
 	void paintEvent(QPaintEvent*e);
 	void resizeEvent(QResizeEvent*e);
 	void keyPressEvent(QKeyEvent*e);
 	void keyReleaseEvent(QKeyEvent*e);
 	void isover();
+	void closeEvent(QCloseEvent* event) override;
 
 signals:
 	void backtopage2();
 private:
+	std::vector<std::unique_ptr<QPixmap>> pixmaps;
 	Ui::gameClass ui;
 };

@@ -10,10 +10,13 @@
 #include<QPaintEvent>
 #include<QApplication>
 #include<QtGUI>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 reSnake::reSnake(QWidget *parent)
     : QMainWindow (parent)
 {
     ui.setupUi(this);
+    loadmusic();
     //setWindowFlags(Qt::WindowStaysOnTopHint|Qt::MaximizeUsingFullscreenGeometryHint);
     //setWindowFlags(Qt::WindowStaysOnTopHint);
     this->resize(600, 1027);
@@ -78,4 +81,17 @@ void reSnake::gotopage1()
     while (QTime::currentTime() < dieTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     this->ppage2->hide();
+}
+
+void reSnake::loadmusic() // 载入音乐
+{
+    QMediaPlayer *player = new QMediaPlayer(this);
+    QAudioOutput *audioOutput = new QAudioOutput(this);
+    player->setAudioOutput(audioOutput);
+    player->setSource(QUrl("qrc:/qtres/bgmusic.mp3"));
+    audioOutput->setVolume(50);               // 设置音量
+    player->setLoops(QMediaPlayer::Infinite); // 设置循环播放
+    player->play();
+    qDebug() << "Music is playing";
+    qDebug() << QString("测试"); // 先将常量字符串转换为 QString，再调用 toUtf8
 }

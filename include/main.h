@@ -7,10 +7,9 @@
 #include <qsoundeffect.h>
 #include <thread>
 #include <Windows.h>
-#include <QMediaPlayer>
 #include <QLoggingCategory>
 #include <QMediaPlayer>
-#include <QAudioOutput>
+
 #pragma comment(lib, "winmm.lib")
 // #include <QTextCodec>
 void loadmusic();
