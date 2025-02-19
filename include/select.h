@@ -4,13 +4,13 @@
 #include "ui_select.h"
 #include"game.h"
 
-class select : public QMainWindow
+class selectpage : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	select(QWidget *parent = nullptr);
-	~select();
+	selectpage(QWidget *parent = nullptr);
+	~selectpage();
 	game* ppage3 = NULL;
 	double snakewidth;
 	void paintEvent(QPaintEvent*);

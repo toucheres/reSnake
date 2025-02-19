@@ -18,27 +18,28 @@ reSnake::reSnake(QWidget *parent)
     //setWindowFlags(Qt::WindowStaysOnTopHint);
     this->resize(600, 1027);
     this->move(900,0);
-    this->ppage2 = new(select);
+    this->ppage2 = new selectpage(this);
     //按钮
     //std::cout<< "anxia";
-    mypushbutton* text = new mypushbutton(QString(":/setting/qtres/setting/pause.png"));
+    mypushbutton* text = new mypushbutton(QString(":/setting/qtres/setting/pause.png"),this);
     text->setParent(this);
     text->move((this->width()-text->width())/2,this->height()/2);
     connect(text, &mypushbutton::released, this, [=]() 
         {
-        QTimer* tptime = new QTimer(this);
         connect(tptime, &QTimer::timeout, this, &reSnake::gotopage2);
         connect(tptime, &QTimer::timeout, tptime ,&QTimer::stop);//点击后暂停
         tptime->start(200);
         });
 
     //接受page2的gotopage1信号
-    connect(this->ppage2, &select::backtopage1, this, &reSnake::gotopage1);
+    connect(this->ppage2, &selectpage::backtopage1, this, &reSnake::gotopage1);
 
 }
 
 reSnake::~reSnake()
-{}
+{
+    delete ppage2;
+}
 
 void reSnake::paintEvent(QPaintEvent* e)
 {
@@ -47,6 +48,8 @@ void reSnake::paintEvent(QPaintEvent* e)
     *bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     painter->drawPixmap(0, 0, *bkg_pixmap);
     painter->end();
+    delete painter;
+    delete bkg_pixmap;
 }
 
 void reSnake::resizeEvent(QResizeEvent*)

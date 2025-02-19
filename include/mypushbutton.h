@@ -4,6 +4,7 @@
 #include "ui_mypushbutton.h"
 #include<QPushButton>
 #include <QString>
+#include <qwidget.h>
 
 class mypushbutton : public QPushButton
 {
@@ -13,7 +14,7 @@ public:
 
 	~mypushbutton();
     //explicit mypushbutton(QWidget *parent = 0);
-    mypushbutton(QString normalImgPath, QString pressedImgPath = "");
+    mypushbutton(QString normalImgPath,QWidget* pa, QString pressedImgPath = "");
     // mypushbutton(QWidget*p);
     //mypushbutton(QString normalImgPath, QString pressedImgPath);
 

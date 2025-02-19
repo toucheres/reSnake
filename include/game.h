@@ -7,7 +7,7 @@
 #include "snakemapClass.h"
 #include<QKeyEvent>
 #include <qtmetamacros.h>
-//#include "select.h"
+//#include "selectpage.h"
 
 
 class game : public QMainWindow

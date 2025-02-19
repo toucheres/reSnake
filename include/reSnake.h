@@ -4,6 +4,7 @@
 #include "ui_reSnake.h"
 #include "game.h"
 #include "select.h"
+#include <qtimer.h>
 
 class reSnake : public QMainWindow
 {
@@ -12,7 +13,7 @@ class reSnake : public QMainWindow
 public:
     reSnake(QWidget *parent = nullptr);
     ~reSnake();
-    select* ppage2=NULL;
+    selectpage* ppage2=NULL;
     void paintEvent(QPaintEvent*);
     void resizeEvent(QResizeEvent*);
 public slots:
@@ -20,4 +21,5 @@ public slots:
     void gotopage1();
 private:
     Ui::reSnakeClass ui;
+    QTimer* tptime = new QTimer(this);
 };

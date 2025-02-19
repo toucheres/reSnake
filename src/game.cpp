@@ -34,146 +34,128 @@ game::game(QWidget* parent)
 }
 void game::paintEvent(QPaintEvent* e)
 {
-	//snake->printSnake();
-	snake->checkState();
-	//std::cout << snake->body.begin()->x << " " << snake->body.begin()->y << std::endl;
-	QPainter* painter = new QPainter(this);
-	//载入
-	QPixmap* bkg_pixmap = new QPixmap(":/qtres/bg.png");
-	
-	QPixmap* food_pixmap = new QPixmap(":/food/qtres/food/food.png");
+    snake->checkState();
 
-	QPixmap* shesheng_pixmap = new QPixmap(":/shesheng/qtres/shesheng/shesheng.png");
+    std::unique_ptr<QPainter> painter = std::make_unique<QPainter>(this);
+    std::unique_ptr<QPixmap> bkg_pixmap = std::make_unique<QPixmap>(":/qtres/bg.png");
+    std::unique_ptr<QPixmap> food_pixmap = std::make_unique<QPixmap>(":/food/qtres/food/food.png");
+    std::unique_ptr<QPixmap> shesheng_pixmap = std::make_unique<QPixmap>(":/shesheng/qtres/shesheng/shesheng.png");
+    std::unique_ptr<QPixmap> shetouleft_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouleft.png");
+	std::unique_ptr<QPixmap> shetouright_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouright.png");
+	std::unique_ptr<QPixmap> shetouup_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetouup.png");
+    std::unique_ptr<QPixmap> shetoudown_pixmap = std::make_unique<QPixmap>(":/shetou/qtres/shetou/shetoudown.png");
+    std::unique_ptr<QPixmap> sheweiright_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweileft.png");
+    std::unique_ptr<QPixmap> sheweileft_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiright.png");
+    std::unique_ptr<QPixmap> sheweiup_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweidown.png");
+    std::unique_ptr<QPixmap> sheweidown_pixmap = std::make_unique<QPixmap>(":/shewei/qtres/shewei/sheweiup.png");
+    std::unique_ptr<QPixmap> shewanleftdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftdown.png");
+    std::unique_ptr<QPixmap> shewanrightup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightup.png");
+    std::unique_ptr<QPixmap> shewanleftup_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanleftup.png");
+    std::unique_ptr<QPixmap> shewanrightdown_pixmap = std::make_unique<QPixmap>(":/shewan/qtres/shewan/shewanrightdown.png");
 
-	QPixmap* shetouleft_pixmap = new QPixmap(":/shetou/qtres/shetou/shetouleft.png");
-	QPixmap* shetouright_pixmap = new QPixmap(":/shetou/qtres/shetou/shetouright.png");
-	QPixmap* shetouup_pixmap = new QPixmap(":/shetou/qtres/shetou/shetouup.png");
-	QPixmap* shetoudown_pixmap = new QPixmap(":/shetou/qtres/shetou/shetoudown.png");
+    std::vector<std::unique_ptr<QPixmap>> pixmaps;
+    pixmaps.push_back(std::move(shesheng_pixmap));//0
+    pixmaps.push_back(std::move(shetouleft_pixmap));//1
+    pixmaps.push_back(std::move(shetouright_pixmap));//2
+    pixmaps.push_back(std::move(shetouup_pixmap));//3
+    pixmaps.push_back(std::move(shetoudown_pixmap));//4
+    pixmaps.push_back(std::move(sheweileft_pixmap));//5
+    pixmaps.push_back(std::move(sheweiright_pixmap));//6
+    pixmaps.push_back(std::move(sheweidown_pixmap));//7
+    pixmaps.push_back(std::move(sheweiup_pixmap));//8
+    pixmaps.push_back(std::move(shewanleftdown_pixmap));//9
+    pixmaps.push_back(std::move(shewanrightup_pixmap));//10
+    pixmaps.push_back(std::move(shewanleftup_pixmap));//11
+    pixmaps.push_back(std::move(shewanrightdown_pixmap));//12
+    pixmaps.push_back(std::move(food_pixmap));//13
 
-	QPixmap* sheweiright_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweileft.png");
-	QPixmap* sheweileft_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiright.png");
-	QPixmap* sheweiup_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweidown.png");
-	QPixmap* sheweidown_pixmap = new QPixmap(":/shewei/qtres/shewei/sheweiup.png");
+    int tpi = 0;
+    for (auto& pixmap : pixmaps) {
+        tpi++;
+        if (pixmap && !pixmap->isNull()) {
+            // pixmap = pixmap->scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+        } else {
+            std::cout << "无效的QPixmap 指针,或图像为空" << tpi << std::endl;
+        }
+    }
 
-	QPixmap* shewanleftdown_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanleftdown.png");
-	QPixmap* shewanrightup_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanrightup.png");
-	QPixmap* shewanleftup_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanleftup.png");
-	QPixmap* shewanrightdown_pixmap = new QPixmap(":/shewan/qtres/shewan/shewanrightdown.png");
+    *bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    for (auto& pixmap : pixmaps) {
+        *pixmap = pixmap->scaled(((PX_OF_LATTICE + 1) / PX_OF_WIDTH_OF_MAP) * snakemap->xlengthp,
+                                 ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp,
+                                 Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    }
 
-	std::vector<QPixmap*> pixmaps = {shesheng_pixmap,shetouleft_pixmap,shetouright_pixmap,shetouup_pixmap,shetoudown_pixmap,sheweileft_pixmap,sheweiright_pixmap,sheweidown_pixmap,sheweiup_pixmap,shewanleftdown_pixmap,shewanrightup_pixmap,shewanleftup_pixmap,shewanrightdown_pixmap,food_pixmap };
-	int tpi = 0;
-	for (std::vector<QPixmap*>::iterator it = pixmaps.begin(); it != pixmaps.end(); it++)
-	{
-		tpi++;
-		if (*it != nullptr && !(*it)->isNull()) 
-		{
-			//**it = (*it)->scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-		}
-		else 
-		{
-			std::cout<< "无效的QPixmap 指针,或图像为空"<< tpi <<std::endl;
-		}
-	}
+    painter->drawPixmap(0, 0, *bkg_pixmap);
 
-	//调整图片大小跟随窗口
-	*bkg_pixmap = bkg_pixmap->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	for (std::vector<QPixmap*>::iterator it = pixmaps.begin(); it != pixmaps.end(); it++)
-	{
-		**it = (*it)->scaled(((PX_OF_LATTICE + 1) /PX_OF_WIDTH_OF_MAP)*snakemap->xlengthp, ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-		
-	}
-	//背景
-	painter->drawPixmap(0, 0, *bkg_pixmap);
-	//snake
-	for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++)
-	{
-		int px = snakemap->getpx(it->x);
-		int py = snakemap->getpy(it->y);
-		switch (it->type)
-		{
-		case shetou:
-		{
-			switch (it->direction)
-			{
-			case left:
-				painter->drawPixmap(px, py, *shetouleft_pixmap);
-				break;
-			case right:
-				painter->drawPixmap(px, py, *shetouright_pixmap);
-				break;
-			case up:
-				painter->drawPixmap(px, py, *shetouup_pixmap);
-				break;
-			case down:
-				painter->drawPixmap(px, py, *shetoudown_pixmap);
-				break;
-			}
-			break;
-		}
-		case shesheng:
-		{
-			painter->drawPixmap(px, py, *shesheng_pixmap);
-			break;
-		}
-		case shewei:
-		{
-			switch (it->direction)
-			{
-			case left:
-				painter->drawPixmap(px, py, *sheweileft_pixmap);
-				break;
-			case right:
-				painter->drawPixmap(px, py, *sheweiright_pixmap);
-				break;
-			case up:
-				painter->drawPixmap(px, py, *sheweiup_pixmap);
-				break;
-			case down:
-				painter->drawPixmap(px, py, *sheweidown_pixmap);
-				break;
-			}
-			break;
-		}
-		case shewan:
-		{
-			switch (it->shewanDirection)
-			{
-				case leftup:
-					painter->drawPixmap(px, py, *shewanleftup_pixmap);
-					break;
-				case rightdown:
-					painter->drawPixmap(px, py, *shewanrightdown_pixmap);
-					break;
-				case leftdown:
-					painter->drawPixmap(px, py, *shewanleftdown_pixmap);
-					break;
-				case rightup:
-					painter->drawPixmap(px, py, *shewanrightup_pixmap);
-					break;
-			}
+    for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++) {
+        int px = snakemap->getpx(it->x);
+        int py = snakemap->getpy(it->y);
+        switch (it->type) {
+        case shetou:
+            switch (it->direction) {
+            case left:
+                painter->drawPixmap(px, py, *pixmaps[1]);
+                break;
+            case right:
+                painter->drawPixmap(px, py, *pixmaps[2]);
+                break;
+            case up:
+                painter->drawPixmap(px, py, *pixmaps[3]);
+                break;
+            case down:
+                painter->drawPixmap(px, py, *pixmaps[4]);
+                break;
+            }
+            break;
+        case shesheng:
+            painter->drawPixmap(px, py, *pixmaps[0]);
+            break;
+        case shewei:
+            switch (it->direction) {
+            case left:
+                painter->drawPixmap(px, py, *pixmaps[5]);
+                break;
+            case right:
+                painter->drawPixmap(px, py, *pixmaps[6]);
+                break;
+            case up:
+                painter->drawPixmap(px, py, *pixmaps[8]);
+                break;
+            case down:
+                painter->drawPixmap(px, py, *pixmaps[7]);
+                break;
+            }
+            break;
+        case shewan:
+            switch (it->shewanDirection) {
+            case leftup:
+                painter->drawPixmap(px, py, *pixmaps[11]);
+                break;
+            case rightdown:
+                painter->drawPixmap(px, py, *pixmaps[12]);
+                break;
+            case leftdown:
+                painter->drawPixmap(px, py, *pixmaps[9]);
+                break;
+            case rightup:
+                painter->drawPixmap(px, py, *pixmaps[10]);
+                break;
+            }
+            break;
+        }
+    }
 
-			break;
-		}
+    for (std::vector<int>::iterator it = this->food->foodLocation.begin(); it != this->food->foodLocation.end(); it++) {
+        int x = *it % (int)(this->snakemap->xlengthnum);
+        int y = 1 + *it / (int)(this->snakemap->xlengthnum);
+        int px = snakemap->getpx(x - 0.3);
+        int py = snakemap->getpx(y - 0.8);
+        painter->drawPixmap(px, py, *pixmaps[13]);
+    }
 
-
-		}
-
-	}
-	//food
-
-	for (std::vector<int>::iterator it = this->food->foodLocation.begin(); it != this->food->foodLocation.end(); it++)
-	{
-		int x = *it %  (int)(this->snakemap->xlengthnum );
-		int y = 1+*it / (int)(this->snakemap->xlengthnum );
-		int px = snakemap->getpx(x-0.3);
-		int py = snakemap->getpx(y-0.8);
-		painter->drawPixmap(px, py, *food_pixmap);
-
-	}
-	snake->checkState();
-	painter->end();
-	
-
+    snake->checkState();
+    painter->end();
 }
 
 void game::resizeEvent(QResizeEvent*)
@@ -290,6 +272,8 @@ void game::isover()
 game::~game()
 {
 	delete snake;
+	delete food;
+	delete snakemap;
 
 }
 
@@ -306,13 +290,13 @@ void game::init(int tspeed,int tlength,double twight)
 
 
 	this->snake->speed = tspeed;
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 1, up, shetou));
+	this->snake->body.emplace_back((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + 1, up, shetou);
 	int i = 0;
 	for (i = 0; i < tlength - 2; i++)
 	{
-		this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2) + 1, (snakemap->ylengthnum / 2) + i +2, up, shesheng));
+		this->snake->body.emplace_back((snakemap->xlengthnum / 2) + 1, (snakemap->ylengthnum / 2) + i +2, up, shesheng);
 	}
-	this->snake->body.push_back(*new snakeNodeClass((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei));
+	this->snake->body.emplace_back((snakemap->xlengthnum / 2)+1,(snakemap->ylengthnum / 2) + i + 2, up, shewei);
 	this->snake->lenght= tlength;
 }
 

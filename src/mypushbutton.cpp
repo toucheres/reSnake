@@ -7,11 +7,11 @@
 //{
 //}
 
-mypushbutton::mypushbutton(QString normalImgPath, QString pressedImgPath) {
+mypushbutton::mypushbutton(QString normalImgPath,QWidget* p, QString pressedImgPath) {
     //mypushbutton::mypushbutton(QString normalImgPath, QString pressedImgPath=""){
     this->normalImgPath = normalImgPath;
     this->pressedImgPath = pressedImgPath;
-
+    this->setParent(p);
     QPixmap pix;
     bool res = pix.load(normalImgPath);
     if (!res) {
