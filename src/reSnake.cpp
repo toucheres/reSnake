@@ -93,5 +93,5 @@ void reSnake::loadmusic() // 载入音乐
     player->setLoops(QMediaPlayer::Infinite); // 设置循环播放
     player->play();
     qDebug() << "Music is playing";
-    qDebug() << QString("测试"); // 先将常量字符串转换为 QString，再调用 toUtf8
+    qDebug() << QString("test"); // 先将常量字符串转换为 QString，再调用 toUtf8
 }

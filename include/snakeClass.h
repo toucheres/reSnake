@@ -6,9 +6,11 @@
 #include "snakeEnum.h"
 #include <QDebug>
 #include <iostream>
+#include <qobject.h>
 
-class snakeClass
+class snakeClass :public QObject
 {
+	Q_OBJECT
 public:
 
 	snakeClass();
@@ -34,5 +36,7 @@ public:
 	void printSnake();
 	void getLonger();
 	void getShorter();
+	signals:
+		void stateChange();
 };
 

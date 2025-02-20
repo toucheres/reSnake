@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 	w.show();
 	return a.exec();
 }
+
 // void loadmusic()//‘ÿ»Î“Ù¿÷
 //{
 //	QSoundEffect music;

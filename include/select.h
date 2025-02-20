@@ -13,10 +13,10 @@ public:
 	~selectpage();
 	game* ppage3 = NULL;
 	double snakewidth;
-	void paintEvent(QPaintEvent*);
-	void resizeEvent(QResizeEvent*);
-	void keyPressEvent(QKeyEvent* e);
-	void keyReleaseEvent(QKeyEvent* e);
+	void paintEvent(QPaintEvent*)override;
+	void resizeEvent(QResizeEvent*)override;
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent* e)override;
 	double getsppeedbyinput(double speed);
 	int getlengthbyinput();
 	double getsizebyinput(double size);

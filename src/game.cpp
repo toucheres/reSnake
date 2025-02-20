@@ -26,11 +26,14 @@ game::game(QWidget* parent)
 	//setWindowFlags(Qt::WindowStaysOnTopHint);
 	this->resize(600, 1027);
 	this->move(900, 0);
-	//buttons
-	//connect(ui.btn3, &QPushButton::clicked, this, [=]() {
+	// buttons
+	// connect(ui.btn3, &QPushButton::clicked, this, [=]() {
 	//	emit this->backtopage2();
 	//	});
-
+	connect(this->snake, &snakeClass::stateChange, this, [=]()
+			{ 
+				// this->repaint();//崩溃
+			});
 
 	logic();
 }
@@ -38,26 +41,8 @@ game::game(QWidget* parent)
 void game::paintEvent(QPaintEvent* e)
 {
     snake->checkState();
-
 	std::unique_ptr<QPainter> painter = std::make_unique<QPainter>(this);
-	int tpi = 0;
-    for (auto& pixmap : pixmaps) {
-        tpi++;
-        if (pixmap && !pixmap->isNull()) {
-            // pixmap = pixmap->scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-        } else {
-            std::cout << "无效的QPixmap 指针,或图像为空" << tpi << std::endl;
-        }
-    }
-	for (int i = 0; i < 14;i++) {
-		
-        *pixmaps[i] = pixmaps[i]->scaled(((PX_OF_LATTICE + 1) / PX_OF_WIDTH_OF_MAP) * snakemap->xlengthp,
-                                 ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp,
-                                 Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    }
-
 	painter->drawPixmap(0, 0, *pixmaps[14]);
-
 	for (std::deque<snakeNodeClass>::iterator it = this->snake->body.begin(); it != this->snake->body.end(); it++) {
         int px = snakemap->getpx(it->x);
         int py = snakemap->getpy(it->y);
@@ -65,52 +50,52 @@ void game::paintEvent(QPaintEvent* e)
         case shetou:
             switch (it->direction) {
             case left:
-                painter->drawPixmap(px, py, *pixmaps[1]);
+                painter->drawPixmap(px, py, *pixmaps[pixmapIndex::shetouleft_pixmap]);
                 break;
             case right:
-                painter->drawPixmap(px, py, *pixmaps[2]);
+                painter->drawPixmap(px, py, *pixmaps[pixmapIndex::shetouright_pixmap]);
                 break;
             case up:
-                painter->drawPixmap(px, py, *pixmaps[3]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::shetouup_pixmap]);
+				break;
             case down:
-                painter->drawPixmap(px, py, *pixmaps[4]);
+                painter->drawPixmap(px, py, *pixmaps[pixmapIndex::shetoudown_pixmap]);
                 break;
             }
             break;
         case shesheng:
-            painter->drawPixmap(px, py, *pixmaps[0]);
-            break;
+			painter->drawPixmap(px, py, *pixmaps [pixmapIndex::shesheng_pixmap]);
+			break;
         case shewei:
             switch (it->direction) {
             case left:
-                painter->drawPixmap(px, py, *pixmaps[5]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::sheweileft_pixmap]);
+				break;
             case right:
-                painter->drawPixmap(px, py, *pixmaps[6]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps[pixmapIndex::sheweiright_pixmap]);
+				break;
             case up:
-                painter->drawPixmap(px, py, *pixmaps[8]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::sheweiup_pixmap]);
+				break;
             case down:
-                painter->drawPixmap(px, py, *pixmaps[7]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps[pixmapIndex::sheweidown_pixmap]);
+				break;
             }
             break;
         case shewan:
             switch (it->shewanDirection) {
             case leftup:
-                painter->drawPixmap(px, py, *pixmaps[11]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::shewanleftup_pixmap]);
+				break;
             case rightdown:
-                painter->drawPixmap(px, py, *pixmaps[12]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps[pixmapIndex::shewanrightdown_pixmap]);
+				break;
             case leftdown:
-                painter->drawPixmap(px, py, *pixmaps[9]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::shewanleftdown_pixmap]);
+				break;
             case rightup:
-                painter->drawPixmap(px, py, *pixmaps[10]);
-                break;
+				painter->drawPixmap(px, py, *pixmaps [pixmapIndex::shewanrightup_pixmap]);
+				break;
             }
             break;
         }
@@ -133,6 +118,13 @@ void game::resizeEvent(QResizeEvent*)
 	std::cout << "resize" << std::endl;
 	snakemap->xlengthp = this->width();
 	snakemap->ylengthp = this->height();
+	for (int i = 0; i < 14; i++)
+	{
+
+		*pixmaps[i] = pixmaps[i]->scaled(((PX_OF_LATTICE + 1) / PX_OF_WIDTH_OF_MAP) * snakemap->xlengthp,
+										 ((PX_OF_LATTICE + 1) / PX_OF_LENGTH_OF_MAP) * snakemap->ylengthp,
+										 Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	}
 	*pixmaps[14] = pixmaps[14]->scaled(this->width(), this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 }
 
@@ -217,7 +209,6 @@ void game::keyReleaseEvent(QKeyEvent* e)
 
 void game::isover()
 {
-	int i = 0;
 	int limitx = 0;
 	int limity = 0;
 	if (this->snakewidth == 1 || this->snakewidth == 2 || this->snakewidth == 0.5)
@@ -309,6 +300,19 @@ void game::initpixmap()
 	pixmaps.push_back(std::move(shewanrightdown_pixmap)); // 12
 	pixmaps.push_back(std::move(food_pixmap));			  // 13
 	pixmaps.push_back(std::move(bkg_pixmap));			  // 14
+	int tpi = 0;
+	for (auto &pixmap : pixmaps)
+	{
+		tpi++;
+		if (pixmap && !pixmap->isNull())
+		{
+			// pixmap = pixmap->scaled(100, 100, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		}
+		else
+		{
+			std::cout << "无效的QPixmap 指针,或图像为空" << tpi << std::endl;
+		}
+	}
 }
 
 void game::logic()
@@ -354,10 +358,10 @@ void game::logic()
 	//	}
         std::cout << "";
 		//---------------------------------------------
-		if (!this) {
-			// 处理蛇身为空的情况
-			return;
-		}
+		// if (!this) {
+		// 	// 处理蛇身为空的情况
+		// 	return;
+		// }
 		if (!this->snake) {
 			// 处理蛇身为空的情况
 			return;

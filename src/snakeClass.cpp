@@ -261,6 +261,7 @@ void snakeClass::checkState()
 				{
 					std::cout << "已纠正错误" << std::endl;
 					it->type = shesheng;
+					emit this->stateChange();
 				}
 			}
 		} 
