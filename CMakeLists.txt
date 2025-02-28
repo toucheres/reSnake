@@ -14,7 +14,8 @@ endif()
 # set(CMAKE_AUTOUIC ON)
 # set(CMAKE_AUTORCC ON)
 # set(CMAKE_PREFIX_PATH $ENV{QTDIR})
-
+# 设置 Qt 安装路径
+set(CMAKE_PREFIX_PATH "/usr/local/Qt-6.7.2")
 find_package(Qt6Core REQUIRED)
 find_package(Qt6Widgets REQUIRED)
 find_package(Qt6Multimedia REQUIRED)

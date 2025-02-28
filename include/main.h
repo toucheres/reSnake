@@ -3,10 +3,10 @@
 #include "reSnake.h"
 #include <QtWidgets/QApplication>
 #include <qguiapplication.h>
-#include <QCoreApplication.h>
+//#include <QCoreApplication.h>
 #include <qsoundeffect.h>
 #include <thread>
-#include <Windows.h>
+//#include <Windows.h>
 #include <QLoggingCategory>
 #include <QMediaPlayer>
 

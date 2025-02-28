@@ -1,6 +1,6 @@
 #include "reSnake.h"
 #include "game.h"
-#include<QPushbutton>
+//#include<QPushbutton>
 #include"select.h"
 #include"mypushbutton.h"
 #include<iostream>
@@ -9,7 +9,7 @@
 #include<QPainter>
 #include<QPaintEvent>
 #include<QApplication>
-#include<QtGUI>
+//#include<QtGUI>
 #include <QMediaPlayer>
 #include <QAudioOutput>
 reSnake::reSnake(QWidget *parent)

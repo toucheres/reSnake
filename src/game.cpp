@@ -1,5 +1,5 @@
 ﻿#include "game.h"
-#include "QPushbutton"
+//#include <QPushbutton>
 #include<QPainter>
 #include<QPaintEvent>
 #include<QTimer>
