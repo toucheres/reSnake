@@ -388,7 +388,7 @@ void game::logic()
 					flag = 1;
 				}
 			}
-			update();
+			// update();
 		}
 		if (flag == 1)
 		{
