@@ -12,6 +12,7 @@
 //#include<QtGUI>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <qsoundeffect.h>
 reSnake::reSnake(QWidget *parent)
     : QMainWindow (parent)
 {
@@ -85,13 +86,59 @@ void reSnake::gotopage1()
 
 void reSnake::loadmusic() // 载入音乐
 {
+    // WARNING!!!
+    // wsl2下没有声卡，暂不支持于原生wsl2中的音频输出，可以通过PulseAudio解决
+    // 参见https://blog.sandtears.com/2020/02/27/wsl-gui-audio-support.html#%E9%9F%B3%E9%A2%91%E6%94%AF%E6%8C%81
     QMediaPlayer *player = new QMediaPlayer(this);
     QAudioOutput *audioOutput = new QAudioOutput(this);
+    qDebug() << player->isAvailable();
     player->setAudioOutput(audioOutput);
     player->setSource(QUrl("qrc:/qtres/bgmusic.mp3"));
     audioOutput->setVolume(50);               // 设置音量
     player->setLoops(QMediaPlayer::Infinite); // 设置循环播放
     player->play();
-    qDebug() << "Music is playing";
     qDebug() << QString("test"); // 先将常量字符串转换为 QString，再调用 toUtf8
 }
+
+// void reSnake::loadmusic() // 载入音乐
+// {
+//     // 尝试使用QMediaPlayer (首选方法)
+//     QMediaPlayer *player = new QMediaPlayer(this);
+//     QAudioOutput *audioOutput = new QAudioOutput(this);
+
+//     bool playerAvailable = player->isAvailable();
+//     qDebug() << "QMediaPlayer available:" << playerAvailable;
+
+//     if (playerAvailable)
+//     {
+//         player->setAudioOutput(audioOutput);
+//         player->setSource(QUrl("qrc:/qtres/bgmusic.mp3"));
+//         audioOutput->setVolume(50);               // 设置音量
+//         player->setLoops(QMediaPlayer::Infinite); // 设置循环播放
+
+//         // 监听错误
+//         connect(player, &QMediaPlayer::errorOccurred,
+//                 [=](QMediaPlayer::Error error, const QString &errorString)
+//                 {
+//                     qDebug() << "Media player error:" << error << errorString;
+//                     // 出错时可以尝试备用方案
+//                 });
+
+//         player->play();
+//         qDebug() << "Music is playing with QMediaPlayer";
+//     }
+//     else
+//     {
+//         // 备用方案：使用QSoundEffect (仅支持WAV格式)
+//         qDebug() << "Falling back to QSoundEffect";
+
+//         // 注意：QSoundEffect只支持WAV格式
+//         // 如果需要播放MP3，需要将资源转换为WAV格式
+//         QSoundEffect *effect = new QSoundEffect(this);
+//         // 假设您也有WAV格式的音乐
+//         effect->setSource(QUrl("qrc:/qtres/bgmusic.wav"));
+//         effect->setLoopCount(QSoundEffect::Infinite);
+//         effect->setVolume(0.5);
+//         effect->play();
+//     }
+// }

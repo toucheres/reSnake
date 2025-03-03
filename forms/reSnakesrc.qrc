@@ -48,5 +48,6 @@
     <qresource prefix="/">
         <file>qtres/bg.png</file>
         <file>qtres/bgmusic.mp3</file>
+        <file>qtres/test.wav</file>
     </qresource>
 </RCC>

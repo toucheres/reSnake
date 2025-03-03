@@ -3,23 +3,38 @@ cmake_minimum_required(VERSION 3.14)
 if (WIN32)
     project(reSnake LANGUAGES CXX)
 elseif(UNIX)
-    project(reSnake)
+    project(reSnake LANGUAGES CXX)  # 确保也设置了语言
 endif()
 
-#set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
+# 设置环境变量以便在运行时找到合适的平台插件
+set(ENV{QT_QPA_PLATFORM} "xcb")
 
-# #======================= INCLUSION OF Qt =======================#
-# set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# set(CMAKE_AUTOMOC ON)
-# set(CMAKE_AUTOUIC ON)
-# set(CMAKE_AUTORCC ON)
-# set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 # 设置 Qt 安装路径
 set(CMAKE_PREFIX_PATH "/usr/local/Qt-6.7.2")
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# 查找所需的 Qt 包
 find_package(Qt6Core REQUIRED)
 find_package(Qt6Widgets REQUIRED)
 find_package(Qt6Multimedia REQUIRED)
+find_package(Qt6MultimediaWidgets REQUIRED)  # 添加这一行
 
+# 如果您需要 Wayland 支持
+# find_package(Qt6WaylandClient)
+# if (NOT Qt6WaylandClient_FOUND)
+#     message(WARNING "Qt6 Wayland Client not found. Wayland support will not be available.")
+# endif()
+
+# 检查 GStreamer (多媒体后端的常用依赖)
+find_package(PkgConfig QUIET)
+if(PKG_CONFIG_FOUND)
+    pkg_check_modules(GSTREAMER gstreamer-1.0)
+    if(NOT GSTREAMER_FOUND)
+        message(WARNING "GStreamer not found. Qt multimedia backend may not work properly.")
+    endif()
+endif()
+
+# 其余部分保持不变
 #=================== INCLUSION OF Project Files ====================#
 set(FORMS_DIR "${CMAKE_SOURCE_DIR}/forms")
 set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
@@ -73,4 +88,4 @@ target_include_directories(reSnake PRIVATE ${INCLUDE_DIR})
 target_include_directories(reSnake PRIVATE ${SOURCE_DIR})
 
 #===================== LINKING LIBRARIES =======================#
-target_link_libraries(reSnake Qt6::Widgets Qt6::Multimedia)
+target_link_libraries(reSnake Qt6::Widgets Qt6::Multimedia Qt6::MultimediaWidgets)
