@@ -30,10 +30,10 @@ game::game(QWidget* parent)
 	// connect(ui.btn3, &QPushButton::clicked, this, [=]() {
 	//	emit this->backtopage2();
 	//	});
-	connect(this->snake, &snakeClass::stateChange, this, [=]()
-			{ 
-				// this->repaint();//崩溃
-			});
+	// connect(this->snake, &snakeClass::stateChange, this, [=]()
+	// 		{ 
+	// 			// this->repaint();//崩溃
+	// 		});
 
 	logic();
 }
